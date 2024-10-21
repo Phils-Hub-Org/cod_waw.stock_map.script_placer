@@ -6,30 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>326</height>
+    <width>449</width>
+    <height>349</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>437</width>
-    <height>326</height>
+    <width>449</width>
+    <height>349</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>437</width>
-    <height>326</height>
+    <width>449</width>
+    <height>349</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Phils-Hub - CoD: WaW - Stock-Map Script-Placer</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/ico/Icons/ico/phils-hub.ico</normaloff>:/ico/Icons/ico/phils-hub.ico</iconset>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* QMenuBar */
+   <string notr="true">/* QToolTip */
+QToolTip {
+    background-color: #2e2e2e;   /* Dark gray background */
+    color: #ffffff;              /* White text */
+    border: 1px solid #5b5e60;   /* Light gray border */
+    padding: 4px;                /* Padding for the tooltip */
+    border-radius: 4px;          /* Rounded corners */
+    opacity: 200;                /* Slight transparency */
+    font-size: 12px;             /* Slightly smaller font size for readability */
+}
+
+/* QMenuBar */
 QMenuBar {
     background-color: #2e2e2e;    /* Dark gray background */
     color: #ffffff;               /* White text */
@@ -130,7 +145,7 @@ QStatusBar {
     background-color: #2e2e2e;   /* Dark gray background */
     border-top: 1px solid #5b5e60; /* Light gray top border for separation */
     color: #ffffff;              /* White text */
-    font-size: 13px;             /* Slightly smaller font for the status bar */
+    font-size: 9px;             /* Slightly smaller font for the status bar */
     padding: 6px;                /* Padding inside the status bar */
 }
 
@@ -452,22 +467,31 @@ QCheckBox::indicator {
 
 /* Hovered checkbox */
 QCheckBox::indicator:hover {
-    background-color: #4a90e2;      /* Light blue on hover */
-    border-color: #3d78b2;          /* Darker blue border on hover */
+    background-color: #3b73b4;      /* Light blue on hover */
+    border-color: #ff050d;          /* Darker blue border on hover */
 }
+
+/*
+red: ff050d
+green: 0dce1d
+*/
 
 /* Checked checkbox */
 QCheckBox::indicator:checked {
     background-color: #4a90e2;      /* Light blue when checked */
     border-color: #3d78b2;          /* Darker blue border when checked */
-    image: url(:/checked-icon.png); /* Replace with your checkmark icon if needed */
+/*    image: url(:/checked-icon.png);  Replace with your checkmark icon if needed */
+}
+
+QCheckBox::indicator:checked:hover {
+    border-color: #0dce1d;
 }
 
 /* Indeterminate checkbox (for tri-state checkboxes) */
 QCheckBox::indicator:indeterminate {
     background-color: #4a90e2;      /* Light blue when in indeterminate state */
     border-color: #3d78b2;          /* Darker blue border */
-    image: url(:/indeterminate-icon.png); /* Replace with your indeterminate icon */
+/*    image: url(:/indeterminate-icon.png);  Replace with your indeterminate icon */
 }
 
 /* Pressed checkbox */
@@ -669,18 +693,76 @@ QToolButton::menu-button:pressed {
               <number>0</number>
              </property>
              <item>
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QFrame" name="frame_5">
+               <property name="frameShape">
+                <enum>QFrame::Shape::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLineEdit" name="mod_name_input">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>28</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>35 char limit</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {padding: 3px;}</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="maxLength">
+                   <number>35</number>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Enter ModName</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="submit_btn">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {padding: 5px;}</string>
+                  </property>
+                  <property name="text">
+                   <string>Submit</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <pointsize>8</pointsize>
+                </font>
+               </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {padding: 3px;}</string>
+                <string notr="true">QLabel {color: #888eac; padding-left: 3px;}</string>
                </property>
                <property name="text">
-                <string/>
-               </property>
-               <property name="maxLength">
-                <number>50</number>
-               </property>
-               <property name="placeholderText">
-                <string>Enter Mod Name</string>
+                <string>ModName Example: nazi_zombie_prototype | prototype.</string>
                </property>
               </widget>
              </item>
@@ -720,6 +802,12 @@ QToolButton::menu-button:pressed {
           </item>
           <item>
            <widget class="QGroupBox" name="groupBox_2">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>111</height>
+             </size>
+            </property>
             <property name="title">
              <string>ZM</string>
             </property>
@@ -855,7 +943,7 @@ QToolButton::menu-button:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>437</width>
+     <width>449</width>
      <height>29</height>
     </rect>
    </property>

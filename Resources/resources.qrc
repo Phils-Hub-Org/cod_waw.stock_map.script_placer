@@ -3,4 +3,7 @@
     <file>ICONS/888EAC-20px/arrow-left.svg</file>
     <file>ICONS/888EAC-20px/arrow-right.svg</file>
   </qresource>
+  <qresource prefix="ico">
+    <file>Icons/ico/phils-hub.ico</file>
+  </qresource>
 </RCC>
