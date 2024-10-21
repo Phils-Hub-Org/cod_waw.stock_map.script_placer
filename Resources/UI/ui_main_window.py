@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowcniYCf.ui'
+## Form generated from reading UI file 'main_windowmcYaGw.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -16,23 +16,21 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QMainWindow,
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGroupBox,
+    QHBoxLayout, QLabel, QLineEdit, QMainWindow,
     QMenu, QMenuBar, QSizePolicy, QStatusBar,
-    QToolBar, QVBoxLayout, QWidget)
+    QVBoxLayout, QWidget)
 import Resources.resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1120, 720)
-        MainWindow.setMinimumSize(QSize(1120, 720))
-        MainWindow.setStyleSheet(u"/* Central Widget */\n"
-"QWidget#centralwidget {\n"
-"    background-color: #1e1e1e;  /* Dark gray background */\n"
-"}\n"
-"\n"
-"/* QMenuBar */\n"
+        MainWindow.resize(437, 326)
+        MainWindow.setMinimumSize(QSize(437, 326))
+        MainWindow.setMaximumSize(QSize(437, 326))
+        MainWindow.setWindowOpacity(1.000000000000000)
+        MainWindow.setStyleSheet(u"/* QMenuBar */\n"
 "QMenuBar {\n"
 "    background-color: #2e2e2e;    /* Dark gray background */\n"
 "    color: #ffffff;               /* White text */\n"
@@ -55,11 +53,11 @@ class Ui_MainWindow(object):
 "    color: #ffffff;                /* Ensure text remains white */\n"
 "}\n"
 "\n"
-"/* QMen"
-                        "u */\n"
+"/* QMenu */\n"
 "QMenu {\n"
 "    background-color: #2e2e2e;     /* Dark gray background for menus */\n"
-"    border: 1px solid #5b5e60;     /* Light gray border */\n"
+"    border: 1px solid #5b5e60;"
+                        "     /* Light gray border */\n"
 "}\n"
 "\n"
 "QMenu::item {\n"
@@ -84,12 +82,12 @@ class Ui_MainWindow(object):
 "    background-color: #5b5e60;     /* Light gray separator between items */\n"
 "}\n"
 "\n"
-"/* QMenu::indicato"
-                        "r (checkboxes and radio buttons in menus) */\n"
+"/* QMenu::indicator (checkboxes and radio buttons in menus) */\n"
 "QMenu::indicator {\n"
 "    width: 16px;\n"
 "    height: 16px;\n"
-"    background-color: #2e2e2e;     /* Dark gray background for indicators */\n"
+"    backgrou"
+                        "nd-color: #2e2e2e;     /* Dark gray background for indicators */\n"
 "    border: 1px solid #5b5e60;     /* Light gray border */\n"
 "    border-radius: 2px;            /* Slightly rounded corners */\n"
 "}\n"
@@ -109,12 +107,12 @@ class Ui_MainWindow(object):
 "    background-color: #2e2e2e;      /* Dark gray background */\n"
 "    border: 1px solid #5b5e60;      /* Light gray border */\n"
 "    padding: 4px;                   /* Padding inside the toolbar */\n"
-"    spacing: 4px;                   /* Spacing between too"
-                        "lbar buttons */\n"
+"    spacing: 4px;                   /* Spacing between toolbar buttons */\n"
 "}\n"
 "\n"
 "QToolBar::handle {\n"
-"    background-color: #5b5e60;      /* Light gray handle for draggable toolbars */\n"
+"    background-color: #5b5e60;      /* Light gray handle for draggable to"
+                        "olbars */\n"
 "    width: 10px;                    /* Width of the handle */\n"
 "	height: 10px;\n"
 "    margin: 4px;                    /* Margin around the handle */\n"
@@ -136,12 +134,12 @@ class Ui_MainWindow(object):
 "    background-color: #2e2e2e;   /* Dark gray background */\n"
 "    border-top: 1px solid #5b5e60; /* Light gray top border for separation */\n"
 "    color: #ffffff;              /* White text */\n"
-"    font-size: 13px;             /* Sli"
-                        "ghtly smaller font for the status bar */\n"
+"    font-size: 13px;             /* Slightly smaller font for the status bar */\n"
 "    padding: 6px;                /* Padding inside the status bar */\n"
 "}\n"
 "\n"
-"QStatusBar::item {\n"
+""
+                        "QStatusBar::item {\n"
 "    border: none;                /* No border around individual status items */\n"
 "    padding: 0px 5px;            /* Padding between status bar items */\n"
 "}\n"
@@ -163,9 +161,9 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QScrollBar:vertical {\n"
-"    back"
-                        "ground-color: #3c3f41;    /* Darker gray for scroll bar background */\n"
-"    width: 12px;                  /* Scroll bar width */\n"
+"    background-color: #3c3f41;    /* Darker gray for scroll bar background */\n"
+"    width: 12px;                  /* Scroll bar width *"
+                        "/\n"
 "    margin: 22px 0 22px 0;        /* Top and bottom margins */\n"
 "}\n"
 "\n"
@@ -178,10 +176,65 @@ class Ui_MainWindow(object):
 "    background: none;             /* Remove arrows */\n"
 "}\n"
 "\n"
+"/* QGroupBox */\n"
+"QGroupBox {\n"
+"    background-color: #2e2e2e;        /* Dark gray background */\n"
+"    border: 1px solid #5b5e60;        /* Light gray border */\n"
+"    border-radius: 4px;               /* Rounded corners */\n"
+"    margin-top: 15px;                 /* Space above the group box */\n"
+"    padding-top: 0px;                    /* Padding inside the group box */\n"
+"    color: #ffffff;                   /* White text for the title */\n"
+"    font-weight: bold;                /* Bold title text */\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;    /* Position the t"
+                        "itle at the top left */\n"
+"    background-color: transparent;    /* Transparent background for the title */\n"
+"    padding: 0 5px;                   /* Padding around the title */\n"
+"    color: #ffffff;                   /* White text for the title */\n"
+"}\n"
+"\n"
+"QGroupBox::title:hover {\n"
+"    color: #4a90e2;                   /* Light blue title on hover */\n"
+"}\n"
+"\n"
+"QGroupBox:flat {\n"
+"    border: none;                     /* No border when the group box is flat */\n"
+"}\n"
+"\n"
+"QGroupBox:disabled {\n"
+"    color: #777777;                   /* Lighter gray text for disabled group box */\n"
+"    border-color: #5b5e60;            /* Keep the light gray border */\n"
+"}\n"
+"\n"
+"/* QGraphicsView */\n"
+"QGraphicsView {\n"
+"    background-color: #2e2e2e;  /* Dark gray background */\n"
+"    border: 1px solid #5b5e60;  /* Light gray border */\n"
+"    border-radius: 4px;         /* Rounded corners */\n"
+"}\n"
+"\n"
+"QGraphicsView:focus {\n"
+"    border-color: #4a90e2;      /* Light blue border when focu"
+                        "sed */\n"
+"    background-color: #333333;  /* Slightly lighter gray background on focus */\n"
+"}\n"
+"\n"
+"QGraphicsView:disabled {\n"
+"    background-color: #2e2e2e;  /* Dark gray background when disabled */\n"
+"    border-color: #5b5e60;      /* Light gray border for disabled state */\n"
+"    color: #777777;             /* Lighter gray for disabled text or content */\n"
+"}\n"
+"\n"
+"QGraphicsView::viewport {\n"
+"    background-color: #2e2e2e;  /* Dark gray background for the viewport */\n"
+"}\n"
+"\n"
 "/* QLabel */\n"
 "QLabel {\n"
 "    color: #ffffff;             /* White text */\n"
-"    font-size: 14px;            /* Set font size */\n"
 "}\n"
 "\n"
 "/* QFrame */\n"
@@ -194,12 +247,12 @@ class Ui_MainWindow(object):
 "    background-color: #2e2e2e;  /* Dark gray background for input fields */\n"
 "    color: #ffffff;             /* White text */\n"
 "    border: 1px solid #5b5e60;  /* Light gray border */\n"
-"    border-radius: 4px;         /* Rou"
-                        "nded corners */\n"
+"    border-radius: 4px;         /* Rounded corners */\n"
 "}\n"
 "\n"
 "QLineEdit:focus {\n"
-"    border-color: #4a90e2;      /* Light blue border when focused */\n"
+""
+                        "    border-color: #4a90e2;      /* Light blue border when focused */\n"
 "    background-color: #333333;  /* Slightly lighter gray on focus */\n"
 "}\n"
 "\n"
@@ -223,15 +276,14 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QListWidget::item:hover {\n"
-"    bac"
-                        "kground-color: #3d78b2;      /* Darker blue on hover */\n"
+"    background-color: #3d78b2;      /* Darker blue on hover "
+                        "*/\n"
 "    color: #ffffff;                 /* Ensure text remains white when hovered */\n"
 "}\n"
 "\n"
 "QListWidget::item:focus {\n"
 "    border: 1px solid #4a90e2;      /* Light blue border on focus */\n"
 "}\n"
-"\n"
 "\n"
 "/* QPlainTextEdit */\n"
 "QPlainTextEdit {\n"
@@ -249,10 +301,141 @@ class Ui_MainWindow(object):
 "    background-color: #3a3a3a;  /* Slightly lighter gray on focus */\n"
 "}\n"
 "\n"
-"/* QPushButton */\n"
+"/* QTabWidget */\n"
+"QTabWidget::pane {\n"
+"    background-color: #2e2e2e;      /* Dark gray backgr"
+                        "ound */\n"
+"    border: 1px solid #5b5e60;      /* Light gray border around the pane */\n"
+"    padding: 4px;                   /* Padding inside the pane */\n"
+"}\n"
+"\n"
+"QTabWidget::tab-bar {\n"
+"    left: 0px;                      /* Space from the left */\n"
+"}\n"
+"\n"
+"/* QTabBar::tab */\n"
+"QTabBar::tab {\n"
+"    background-color: #3c3f41;      /* Dark gray background for tabs */\n"
+"    color: #ffffff;                 /* White text for tabs */\n"
+"    border-left: 1px solid #5b5e60;      /* Light gray border around tabs */\n"
+"    border-top: 1px solid #5b5e60;\n"
+"    border-right: 1px solid #5b5e60;\n"
+"    padding: 4px 8px;              /* Padding for each tab */\n"
+"    margin-left: 2px;                    /* Slight margin between tabs */\n"
+"    margin-right: 2px;\n"
+"    border-top-left-radius: 4px;    /* Rounded top corners */\n"
+"    border-top-right-radius: 4px;   /* Rounded top corners */\n"
+"}\n"
+"\n"
+"/* Selected tab */\n"
+"QTabBar::tab:selected {\n"
+"    background-color: #4a90e2;      /* "
+                        "Light blue background for selected tab */\n"
+"    color: #ffffff;                 /* White text for selected tab */\n"
+"    border-color: #4a90e2;          /* Blue border for selected tab */\n"
+"}\n"
+"\n"
+"/* Hovered tab */\n"
+"QTabBar::tab:hover {\n"
+"    background-color: #3d78b2;      /* Darker blue on hover */\n"
+"    color: #ffffff;                 /* White text */\n"
+"}\n"
+"\n"
+"/* Disabled tab */\n"
+"QTabBar::tab:disabled {\n"
+"    background-color: #2e2e2e;      /* Dark gray for disabled tab */\n"
+"    color: #777777;                 /* Light gray text for disabled tabs */\n"
+"}\n"
+"\n"
+"/* Focused tab */\n"
+"QTabBar::tab:focus {\n"
+"    border: 1px solid #4a90e2;      /* Blue border when tab is focused */\n"
+"}\n"
+"\n"
+"/* Tab close button (optional) */\n"
+"QTabBar::close-button {\n"
+"    /* image: url(close-icon.png);     Replace with your close icon path */\n"
+"    subcontrol-position: right;     /* Position the close button on the right */\n"
+"    margin: 0 8px 0 0;              /* Spacing for the "
+                        "close button */\n"
+"}\n"
+"/*\n"
+"QTabBar::close-button:hover {\n"
+"    image: url(close-icon-hover.png);   Change icon on hover \n"
+"}*/\n"
+"\n"
+"/* QComboBox */\n"
+"QComboBox {\n"
+"    background-color: #2e2e2e;       /* Dark gray background */\n"
+"    color: #ffffff;                  /* White text */\n"
+"    border: 1px solid #5b5e60;       /* Light gray border */\n"
+"    border-radius: 4px;              /* Rounded corners */\n"
+"    padding-left: 2px;                    /* Padding inside the combo box */\n"
+"}\n"
+"\n"
+"QComboBox:hover {\n"
+"    background-color: #3a3a3a;       /* Slightly lighter gray on hover */\n"
+"    border-color: #4a90e2;           /* Light blue border on hover */\n"
+"}\n"
+"\n"
+"QComboBox:focus {\n"
+"    background-color: #333333;       /* Lighter gray on focus */\n"
+"    border-color: #4a90e2;           /* Light blue border on focus */\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 30px;                 "
+                        "     /* Width of the drop-down button */\n"
+"    background-color: #2e2e2e;        /* Dark gray background for drop-down */\n"
+"    border-left: 1px solid #5b5e60;   /* Light gray separator between drop-down button and combo box */\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/888EAC-20px/ICONS/888EAC-20px/arrow-down.svg);  /*Replace with your down arrow icon */\n"
+"    width: 12px;                         /* Width of the arrow */\n"
+"    height: 12px;                        /* Height of the arrow */\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow:hover {\n"
+"    image: url(:/888EAC-20px/ICONS/888EAC-20px/arrow-down.svg); /* Optional: different icon on hover */\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #2e2e2e;        /* Dark gray background for drop-down list */\n"
+"    color: #ffffff;                   /* White text */\n"
+"    border: 1px solid #5b5e60;        /* Light gray border around the list */\n"
+"    selection-background-color: #4a90e2;  /* Light blue background for sel"
+                        "ected item */\n"
+"    selection-color: #ffffff;         /* White text for selected item */\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView::item {\n"
+"    background-color: transparent;    /* Transparent background for list items */\n"
+"    padding: 6px;                     /* Padding for each item in the list */\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView::item:selected {\n"
+"    background-color: #4a90e2;        /* Light blue when an item is selected */\n"
+"    color: #ffffff;                   /* White text for selected item */\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView::item:hover {\n"
+"    background-color: #3d78b2;        /* Darker blue on hover */\n"
+"    color: #ffffff;                   /* White text when hovered */\n"
+"}\n"
+"\n"
+"QComboBox:disabled {\n"
+"    background-color: #2e2e2e;        /* Dark gray background when disabled */\n"
+"    color: #777777;                   /* Lighter gray text when disabled */\n"
+"    border-color: #5b5e60;            /* Keep the light gray border */\n"
+"}\n"
+"\n"
+"/* QPus"
+                        "hButton */\n"
 "QPushButton {\n"
-" "
-                        "   background-color: #3c3f41;  /* Dark gray background */\n"
+"    background-color: #3c3f41;  /* Dark gray background */\n"
 "    color: #ffffff;             /* White text */\n"
 "    border: 1px solid #5b5e60;  /* Light gray border */\n"
 "    border-radius: 4px;         /* Rounded corners */\n"
@@ -269,20 +452,68 @@ class Ui_MainWindow(object):
 "    border-color: #2a5f92;      /* Even darker border when pressed */\n"
 "}\n"
 "\n"
+"/* QCheckBox */\n"
+"QCheckBox {\n"
+"    color: #ffffff;                 /* White text for checkbox label */\n"
+"    spacing: 6px;                   /* Space between checkbox and label */\n"
+"}\n"
+"\n"
+"QCheckBox::indicator {\n"
+"    width: 14px;                    /* Set the size of the checkbox */\n"
+"    height: 14px;\n"
+"    background-color: #2e2e2e;      /* Dark gray background for th"
+                        "e checkbox */\n"
+"    border: 1px solid #5b5e60;      /* Light gray border */\n"
+"    border-radius: 2px;             /* Slight rounding for modern look */\n"
+"}\n"
+"\n"
+"/* Hovered checkbox */\n"
+"QCheckBox::indicator:hover {\n"
+"    background-color: #4a90e2;      /* Light blue on hover */\n"
+"    border-color: #3d78b2;          /* Darker blue border on hover */\n"
+"}\n"
+"\n"
+"/* Checked checkbox */\n"
+"QCheckBox::indicator:checked {\n"
+"    background-color: #4a90e2;      /* Light blue when checked */\n"
+"    border-color: #3d78b2;          /* Darker blue border when checked */\n"
+"    image: url(:/checked-icon.png); /* Replace with your checkmark icon if needed */\n"
+"}\n"
+"\n"
+"/* Indeterminate checkbox (for tri-state checkboxes) */\n"
+"QCheckBox::indicator:indeterminate {\n"
+"    background-color: #4a90e2;      /* Light blue when in indeterminate state */\n"
+"    border-color: #3d78b2;          /* Darker blue border */\n"
+"    image: url(:/indeterminate-icon.png); /* Replace with your indeterminate icon "
+                        "*/\n"
+"}\n"
+"\n"
+"/* Pressed checkbox */\n"
+"QCheckBox::indicator:pressed {\n"
+"    background-color: #3d78b2;      /* Darker blue on press */\n"
+"    border-color: #2a5f92;          /* Even darker border when pressed */\n"
+"}\n"
+"\n"
+"/* Disabled checkbox */\n"
+"QCheckBox::indicator:disabled {\n"
+"    background-color: #2e2e2e;      /* Dark gray when disabled */\n"
+"    border-color: #5b5e60;          /* Light gray border */\n"
+"    color: #777777;                 /* Light gray label when disabled */\n"
+"}\n"
+"\n"
 "/* QRadioButton */\n"
 "QRadioButton {\n"
 "    color: #ffffff;              /* White text */\n"
-"    font-size: 14px;             /* Font size for readability */\n"
 "    spacing: 5px;                /* Space between radio button and label */\n"
 "}\n"
 "\n"
 "QRadioButton::indicator {\n"
-"    width: 16px;                 /* Size of the radio button */\n"
-"    height: 16px;\n"
-"    background-color: #2e2e2e;   /* Dark gray back"
-                        "ground for the indicator */\n"
+"    width: 14px;                 /* Size of the radio button */\n"
+"    height: 14px;\n"
+"    background-color: #2e2e2e;   /* Dark gray background for the indicator */\n"
 "    border: 1px solid #5b5e60;   /* Light gray border */\n"
-"    border-radius: 8px;          /* Circular radio button */\n"
+"    border-radius: 8px;          /* Circular radio bu"
+                        "tton */\n"
 "}\n"
 "\n"
 "QRadioButton::indicator:hover {\n"
@@ -307,12 +538,12 @@ class Ui_MainWindow(object):
 "\n"
 "/* QToolButton */\n"
 "QToolButton {\n"
-"    background-color: #3c3f41;    /*"
-                        " Dark gray background */\n"
+"    background-color: #3c3f41;    /* Dark gray background */\n"
 "    color: #ffffff;               /* White text/icon */\n"
-"    border: 1px solid #5b5e60;    /* Light gray border */\n"
+"    border: 1px solid #5b5e60;    /* Light gray border */"
+                        "\n"
 "    border-radius: 4px;           /* Rounded corners */\n"
-"    padding: 6px 12px;            /* Padding for comfortable button size */\n"
+"    padding: 0px 0px;            /* Padding for comfortable button size */\n"
 "}\n"
 "\n"
 "QToolButton:hover {\n"
@@ -332,13 +563,13 @@ class Ui_MainWindow(object):
 "\n"
 "QToolButton:disabled {\n"
 "    background-color: #2e2e2e;    /* Dark gray when disabled */\n"
-"    color: #777777;               /* Lighter gray text/icon for disabled state */"
-                        "\n"
+"    color: #777777;               /* Lighter gray text/icon for disabled state */\n"
 "    border-color: #5b5e60;        /* Keep the border color same as normal state */\n"
 "}\n"
 "\n"
 "/* QToolButton::menu-button */\n"
-"QToolButton::menu-button {\n"
+"QToolButt"
+                        "on::menu-button {\n"
 "    background-color: #3c3f41;      /* Dark gray background for menu button */\n"
 "    border: 1px solid #5b5e60;      /* Light gray border for menu button */\n"
 "    padding: 4px;                   /* Padding for the menu button */\n"
@@ -357,7 +588,10 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName(u"actionAbout")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"")
+        self.centralwidget.setStyleSheet(u"/* Central Widget */\n"
+"#centralwidget {\n"
+"    background-color: #1e1e1e;  /* Dark gray background */\n"
+"}")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -382,8 +616,99 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setStyleSheet(u"QFrame {margin: 0px;}")
         self.frame.setFrameShape(QFrame.Shape.NoFrame)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.frame)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(9, 9, 9, 9)
+        self.frame_4 = QFrame(self.frame)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setFrameShape(QFrame.Shape.NoFrame)
+        self.frame_4.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_4)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit = QLineEdit(self.frame_4)
+        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEdit.setStyleSheet(u"QLineEdit {padding: 3px;}")
+        self.lineEdit.setMaxLength(50)
+
+        self.verticalLayout_6.addWidget(self.lineEdit)
+
+        self.groupBox = QGroupBox(self.frame_4)
+        self.groupBox.setObjectName(u"groupBox")
+        self.verticalLayout_3 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(6, 6, 6, 6)
+        self.label = QLabel(self.groupBox)
+        self.label.setObjectName(u"label")
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_3.addWidget(self.label)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox)
+
+
+        self.verticalLayout_2.addWidget(self.frame_4)
+
+        self.groupBox_2 = QGroupBox(self.frame)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.verticalLayout_4 = QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(6, 6, 6, 6)
+        self.zm_prototype_cbox = QCheckBox(self.groupBox_2)
+        self.zm_prototype_cbox.setObjectName(u"zm_prototype_cbox")
+
+        self.verticalLayout_4.addWidget(self.zm_prototype_cbox)
+
+        self.zm_asylum_cbox = QCheckBox(self.groupBox_2)
+        self.zm_asylum_cbox.setObjectName(u"zm_asylum_cbox")
+
+        self.verticalLayout_4.addWidget(self.zm_asylum_cbox)
+
+        self.zm_sumpf_cbox = QCheckBox(self.groupBox_2)
+        self.zm_sumpf_cbox.setObjectName(u"zm_sumpf_cbox")
+
+        self.verticalLayout_4.addWidget(self.zm_sumpf_cbox)
+
+        self.zm_factory_cbox = QCheckBox(self.groupBox_2)
+        self.zm_factory_cbox.setObjectName(u"zm_factory_cbox")
+
+        self.verticalLayout_4.addWidget(self.zm_factory_cbox)
+
+
+        self.verticalLayout_2.addWidget(self.groupBox_2)
+
+        self.frame_2 = QFrame(self.frame)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setFrameShape(QFrame.Shape.NoFrame)
+        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_7 = QVBoxLayout(self.frame_2)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_3 = QGroupBox(self.frame_2)
+        self.groupBox_3.setObjectName(u"groupBox_3")
+        self.groupBox_3.setMinimumSize(QSize(0, 45))
+        self.groupBox_3.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.groupBox_3.setFlat(False)
+        self.groupBox_3.setCheckable(False)
+        self.verticalLayout_5 = QVBoxLayout(self.groupBox_3)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 3)
+        self.label_2 = QLabel(self.groupBox_3)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.label_2, 0, Qt.AlignmentFlag.AlignHCenter)
+
+
+        self.verticalLayout_7.addWidget(self.groupBox_3)
+
+
+        self.verticalLayout_2.addWidget(self.frame_2)
+
 
         self.horizontalLayout.addWidget(self.frame)
 
@@ -393,15 +718,11 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QStatusBar(MainWindow)
         self.statusBar.setObjectName(u"statusBar")
+        self.statusBar.setSizeGripEnabled(False)
         MainWindow.setStatusBar(self.statusBar)
-        self.toolBar = QToolBar(MainWindow)
-        self.toolBar.setObjectName(u"toolBar")
-        self.toolBar.setMovable(True)
-        self.toolBar.setAllowedAreas(Qt.ToolBarArea.AllToolBarAreas)
-        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
         self.menuBar = QMenuBar(MainWindow)
         self.menuBar.setObjectName(u"menuBar")
-        self.menuBar.setGeometry(QRect(0, 0, 1120, 29))
+        self.menuBar.setGeometry(QRect(0, 0, 437, 29))
         self.menuBar.setDefaultUp(False)
         self.menuBar.setNativeMenuBar(True)
         self.menuFile = QMenu(self.menuBar)
@@ -419,7 +740,17 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Phils-Hub - CoD: WaW - Stock-Map Script-Placer", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
-        self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
+        self.lineEdit.setText("")
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter Mod Name", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"SP", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Maybe in future...", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"ZM", None))
+        self.zm_prototype_cbox.setText(QCoreApplication.translate("MainWindow", u"Nacht der Untoten (nazi_zombie_prototype)", None))
+        self.zm_asylum_cbox.setText(QCoreApplication.translate("MainWindow", u"Verr\u00fcckt (nazi_zombie_asylum)", None))
+        self.zm_sumpf_cbox.setText(QCoreApplication.translate("MainWindow", u"Shi No Numa (nazi_zombie_sumpf)", None))
+        self.zm_factory_cbox.setText(QCoreApplication.translate("MainWindow", u"Der Riese (nazi_zombie_factory)", None))
+        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"MP", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Maybe in future...", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
     # retranslateUi
 

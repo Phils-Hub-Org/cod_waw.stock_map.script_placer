@@ -1,4 +1,3 @@
-from Utils.qt_utility import displayMessageBox
 
 class ScriptPlacer:
     def __init__(self, mainWindow):
