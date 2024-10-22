@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowBlAyxj.ui'
+## Form generated from reading UI file 'main_windowspiOVe.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -164,8 +164,8 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QStatusBar::indicator {\n"
-"    background-color: #4a90e2;   /* Optional indicator styling, e.g., for ic"
-                        "ons or status signals */\n"
+"    background-color: #4a90e2;   /* Optional indicator styling, e.g., for i"
+                        "cons or status signals */\n"
 "    border-radius: 4px;          /* Rounded corners for any indicator elements */\n"
 "}\n"
 "\n"
@@ -193,8 +193,8 @@ class Ui_MainWindow(object):
 "/* QGroupBox */\n"
 "QGroupBox {\n"
 "    background-color: #2e2e2e;        /* Dark gray background */\n"
-"    border: 1px solid #5b5e60;        /* Light"
-                        " gray border */\n"
+"    border: 1px solid #5b5e60;        /* Ligh"
+                        "t gray border */\n"
 "    border-radius: 4px;               /* Rounded corners */\n"
 "    margin-top: 15px;                 /* Space above the group box */\n"
 "    padding-top: 0px;                    /* Padding inside the group box */\n"

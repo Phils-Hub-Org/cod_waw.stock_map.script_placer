@@ -145,7 +145,7 @@ QStatusBar {
     background-color: #2e2e2e;   /* Dark gray background */
     border-top: 1px solid #5b5e60; /* Light gray top border for separation */
     color: #ffffff;              /* White text */
-    font-size: 9px;             /* Slightly smaller font for the status bar */
+    font-size: 13px;             /* Slightly smaller font for the status bar */
     padding: 6px;                /* Padding inside the status bar */
 }
 

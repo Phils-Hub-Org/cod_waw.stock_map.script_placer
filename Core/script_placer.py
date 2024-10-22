@@ -92,15 +92,13 @@ class ScriptPlacer:
     
     def copyFiles(self, waw_root, modName, mapName, mode):
         # get the template files directory
-        # if dev, e.g. vscode, then we'll set the base path as the "current working directory"
-        # if not, then we'll set the base path as the "Call of Duty World at War\Phils-Hub\Stock-Map Script-Placer" directory
         template_files_root = os.path.join(os.getcwd(), 'Phils-Hub',  'Stock-Map Script-Placer')
 
-        # if directory doesn't exist, create it
+        logger.debug(f'template_files_root: {template_files_root}')
+
+        # if the template files directory doesn't exist, create it
         if not os.path.exists(template_files_root):
             os.makedirs(template_files_root, exist_ok=True)
-        
-        logger.debug(f'template_files_root: {template_files_root}')
         
         # join the template files root directory with the assets directory
         template_files_dir = os.path.join(template_files_root, 'Stock Base Files', mapName)
@@ -108,6 +106,7 @@ class ScriptPlacer:
         logger.debug(f'template_files_dir: {template_files_dir}')
         
         # Check if the template files directory exists
+        # If you see this, then 
         if not os.path.exists(template_files_dir):
             displayMessageBox(f"Error, The template files directory\n{template_files_dir}\ndoes not exist")
             return
