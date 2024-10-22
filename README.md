@@ -10,6 +10,17 @@ Place the executable in your call of duty: world at war folder.
 
 Run exe, input a mod name, select a map, click submit.
 
+## Addtional Notes
+ff extractor (for extracting the stock base files yourself)
+source
+https://tom-crowley.co.uk/downloads
+
+if source ever becomes unavailable
+https://1drv.ms/u/s!AjIuIzvxDorcr_I7FDZ74xE23kg7Qw?e=gEuVvu
+
+how-to download/run/use tutorial
+https://youtu.be/X29Nrvj9YOE
+
 ## License
 
 MIT License
