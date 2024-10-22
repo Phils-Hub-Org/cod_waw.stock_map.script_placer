@@ -5,6 +5,7 @@ Creates a mod with the relevant decompiled stock map files.
 ## Installation
 
 Place the executable in your call of duty: world at war Steam folder.
+
 If you're using a non-steam version, then let me know and ill add an option to the GUI to toggle steam/non-steam.
 
 Place the 'Stock Map Files' folder on your desktop, you'll need to move them during the below 'Usage' step.
