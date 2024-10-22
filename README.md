@@ -4,11 +4,21 @@ Creates a mod with the relevant decompiled stock map files.
 
 ## Installation
 
-Place the executable in your call of duty: world at war folder.
+Place the executable in your call of duty: world at war Steam folder.
+If you're using a non-steam version, then let me know and ill add an option to the GUI to toggle steam/non-steam.
+
+Place the 'Stock Map Files' folder on your desktop, you'll need to move them during the below 'Usage' step.
 
 ## Usage
 
 Run exe, input a mod name, select a map, click submit.
+
+If first time creating a mod:
+  It will inform you that a directory does not exist, this is normal.
+  Navigate to the 'waw_root/Phils-Hub/Stock-Map Script-Placer' directory and place the 'Stock Map Files' folder into it.
+  Don't worry, you only need to do this process once.
+
+Now you can click submit again and it will create the mod.
 
 ## Addtional Notes
 ff extractor (for extracting the stock base files yourself)
