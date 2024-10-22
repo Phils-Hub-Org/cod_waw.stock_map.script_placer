@@ -96,12 +96,9 @@ class ScriptPlacer:
         # if not, then we'll set the base path as the "Call of Duty World at War\Phils-Hub\Stock-Map Script-Placer" directory
         template_files_root = os.path.join(os.getcwd(), 'Phils-Hub',  'Stock-Map Script-Placer')
 
-        if isExecutable():
-            # if directory doesn't exist, create it
-            if not os.path.exists(template_files_root):
-                os.makedirs(template_files_root, exist_ok=True)
-        else:
-            template_files_root = os.getcwd()
+        # if directory doesn't exist, create it
+        if not os.path.exists(template_files_root):
+            os.makedirs(template_files_root, exist_ok=True)
         
         logger.debug(f'template_files_root: {template_files_root}')
         
