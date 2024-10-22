@@ -35,3 +35,7 @@ This project is open source and free to use, modify, and distribute under the te
 ## Acknowledgements
 
 This is a Phils-Hub community-contributed project.
+
+## Screen Shots ##
+![image](https://github.com/user-attachments/assets/c34912f4-6de6-4478-b27b-c64a26a463c1)
+
