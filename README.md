@@ -20,4 +20,4 @@ This project is open source and free to use, modify, and distribute under the te
 
 ## Acknowledgements
 
-This is a Phils-Hub community-contributed project...
+This is a Phils-Hub community-contributed project.
