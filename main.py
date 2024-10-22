@@ -22,14 +22,12 @@ def setupLogging():
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
         handlers=[
-            # non-rotating | will keep storing the logs forever
-            # logging.FileHandler(log_file_path),
-
-            # rotating | is set to keep storing the logs in the same file with a maximum size of 5MB
-            # RotatingFileHandler(log_file_path, maxBytes=5*1024*1024, backupCount=5),
-
-            # non-rotating / rotating, based on environment
+            # set file handler based on environment
+            # FileHandler | keeps storing the logs forever
+            # RotatingFileHandler | keeps up to 5 logs of size 5MB
             logging.FileHandler(log_file_path) if ENV == 'DEV' else RotatingFileHandler(log_file_path, maxBytes=5*1024*1024, backupCount=1),
+            # The StreamHandler is used to output log messages to a specific output stream.
+            # By default, it outputs to sys.stderr, but you can direct it to other streams, like sys.stdout, or even to custom file-like objects.
             logging.StreamHandler()
         ]
     )
@@ -64,5 +62,7 @@ if __name__ == "__main__":
         entry = Entry()
         entry.init()
         sys.exit(app.exec())
+    except KeyboardInterrupt:
+        logging.info("Application closed by user.")
     except Exception as e:
-        logging.exception(e)
+        logging.exception("An error occurred: %s", e)
