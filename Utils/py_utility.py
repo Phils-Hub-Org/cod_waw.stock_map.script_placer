@@ -13,16 +13,14 @@ def printProjectStructure(root_dir: str=os.getcwd(), files_to_ignore: list=[], f
                 continue
             print("  " * indent + f"📄 {item}")
 
-def getBasePath():
-    is_executable = getattr(sys, 'frozen', False)  # Check if the app is running as an executable
-    if is_executable:
-        # When running as an executable, stock files will be bundled in the same directory as the exe
-        base_path = os.path.dirname(sys.executable)
-    else:
-        # When running from VSCode, use the current working directory or project-defined path
-        base_path = os.getcwd()
-    
-    return base_path
+def isExecutable():
+    return getattr(sys, 'frozen', False)
+
+def getTempUnpackPath():
+    # When running as an executable, PyInstaller unpacks embedded files into a temporary directory
+    unpack_path = os.path.join(sys._MEIPASS)
+
+    return unpack_path
 
 if __name__ == "__main__":
     printProjectStructure(
@@ -38,7 +36,7 @@ if __name__ == "__main__":
             '__pycache_',
             '--archived',
             '--misc',
-            'stock_base_files',
+            'Phils-Hub',
             'Tests'
         ]
     )

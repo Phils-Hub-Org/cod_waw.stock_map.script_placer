@@ -1,7 +1,9 @@
-import os, sys, shutil
+import os, shutil, logging
 from PySide6.QtCore import QThread, Signal, QTimer
-from Utils.py_utility import getBasePath
+from Utils.py_utility import isExecutable, getTempUnpackPath
 from Utils.qt_utility import displayMessageBox
+
+logger = logging.getLogger(__name__)
 
 class FileCopyWorker(QThread):
     # Define a signal that emits when copying is done
@@ -21,7 +23,7 @@ class FileCopyWorker(QThread):
             self.finished.emit(f"Successfully created {self.modName} for {self.mapName} on {self.mode}")
         except Exception as err:
             self.finished.emit(f"Error occurred. Check error_log.txt for more details.")
-            with open("error_log.txt", "a") as f:
+            with open(os.path.join(os.getcwd(), 'error_log.txt'), 'a') as f:
                 f.write(f"Error creating {self.modName} for {self.mapName} on {self.mode}:\nError: {err}\n")
 
 class ScriptPlacer:
@@ -61,35 +63,57 @@ class ScriptPlacer:
         mapName = selectedOptions[0]
 
         # get the selected mode
-        # zm is the only mode available
+        # zm is the only mode available atm
         mode = "zm"
 
-        # get base path (for executable or script)
-        base_path = getBasePath()
+        # check if the mod already exists
+        # get the waw root directory
+        # so if dev, e.g. vscode, then we'll explicitly set the base path
+        # if not, then we'll use the current working directory since in main.py we ensure that we're in the correct directory when running via exe
+        if isExecutable():
+            waw_root = os.getcwd()
+        else:
+            # set YOUR waw root directory here
+            waw_root = r'D:\SteamLibrary\steamapps\common\Call of Duty World at War'
+        
+        logger.debug(f'waw_root: {waw_root}')
+        
+        if not os.path.exists(waw_root):
+            logger.debug(f'waw_root: {waw_root} does not exist')
+            return
 
         # check if the mod already exists
-        if os.path.exists(os.path.join(base_path, "mods", modName)):
+        if os.path.exists(os.path.join(waw_root, "mods", modName)):
             displayMessageBox(f"Error, {modName} already exists")
             return
         
         # copy the files
-        self.copyFiles(base_path, modName, mapName, mode)
+        self.copyFiles(waw_root, modName, mapName, mode)
     
-    def copyFiles(self, base_path, modName, mapName, mode):
-        # Specify your directory relative to the base path
-        template_files_dir = os.path.join(base_path, "stock_base_files", mapName)
-        print(template_files_dir)
+    def copyFiles(self, waw_root, modName, mapName, mode):
+        # get the template files directory
+        template_files_root = os.path.join(os.getcwd(), 'Phils-Hub',  'Stock-Map Script-Placer')
         
-        # Check if the source directory exists
+        logger.debug(f'template_files_root: {template_files_root}')
+        
+        template_files_dir = os.path.join(template_files_root, 'Stock Base Files', mapName)
+
+        logger.debug(f'template_files_dir: {template_files_dir}')
+        
+        # Check if the template files directory exists
         if not os.path.exists(template_files_dir):
-            displayMessageBox(f"Source directory does not exist: {template_files_dir}")
+            displayMessageBox(f"Error, The template files directory\n{template_files_dir}\ndoes not exist")
             return
 
+        # Define the destination root
+        destination_root = os.path.join(waw_root, 'mods')
+        if not os.path.exists(destination_root):
+            os.makedirs(destination_root, exist_ok=True)
+
         # Define the destination directory
-        destination_dir = os.path.join(base_path, "mods", modName)
-        
-        # Create the destination directory if it doesn't exist
-        os.makedirs(destination_dir, exist_ok=True)
+        destination_dir = os.path.join(destination_root, modName)
+        if not os.path.exists(destination_dir):
+            os.makedirs(destination_dir, exist_ok=True)
 
         # Copy the entire directory
         try:

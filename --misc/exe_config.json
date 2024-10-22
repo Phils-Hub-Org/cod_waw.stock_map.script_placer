@@ -15,7 +15,7 @@
   },
   {
    "optionDest": "console",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "icon_file",
@@ -40,6 +40,10 @@
   {
    "optionDest": "disable_windowed_traceback",
    "value": false
+  },
+  {
+   "optionDest": "version_file",
+   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock.map_script_placer/--misc/version.txt"
   },
   {
    "optionDest": "manifest",
@@ -68,10 +72,6 @@
   {
    "optionDest": "datas",
    "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock.map_script_placer/Resources;Resources/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock.map_script_placer/stock_base_files;stock_base_files/"
   },
   {
    "optionDest": "datas",
