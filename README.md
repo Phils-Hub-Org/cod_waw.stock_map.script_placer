@@ -18,8 +18,11 @@ https://tom-crowley.co.uk/downloads
 if source ever becomes unavailable
 https://1drv.ms/u/s!AjIuIzvxDorcr_I7FDZ74xE23kg7Qw?e=gEuVvu
 
-how-to download/run/use tutorial
+how-to download/run/setup/use exe
 https://youtu.be/X29Nrvj9YOE
+
+how-to build/run mod
+https://youtu.be/xJZ4co0FpF4
 
 ## License
 
