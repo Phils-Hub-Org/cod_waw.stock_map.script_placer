@@ -18,6 +18,16 @@ Handy CoDWaW.exe Target args: +set fs_game mods/ph_stock_map_p_01 +devmap nazi_z
 
 Feel free to check out the tutorial here: ...
 
+""" release notes. will move to said section once github updates my shit.
+option 1
+download exe
+download source (for stock files)
+
+option 2
+download exe
+extract stock files yourself (how-to is included in the tutorial video)
+"""
+
 ## License
 
 MIT License
