@@ -97,7 +97,6 @@ class ScriptPlacer:
             displayMessageBox(f"Error, Please select at least one map")
             return
 
-        
         # ensure only one option is selected
         if not self.isOnlyOneCheckboxChecked():
             displayMessageBox(f"Error, Please select only one map")
@@ -165,7 +164,7 @@ class ScriptPlacer:
     def getSelectedCheckboxMode(self):
         # Iterate over all checkboxes to find the checked one
         for mode, category in self.optionsWidgets.items():
-            for checkbox_name, checkbox in category.items():
+            for _, checkbox in category.items():
                 if checkbox.isChecked():
                     return mode  # Return the mode of the checked checkbox
 

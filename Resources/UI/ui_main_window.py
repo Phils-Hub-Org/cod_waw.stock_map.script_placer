@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowzCQQbz.ui'
+## Form generated from reading UI file 'main_windowQyMixT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -26,9 +26,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(449, 567)
-        MainWindow.setMinimumSize(QSize(449, 567))
-        MainWindow.setMaximumSize(QSize(449, 767))
+        MainWindow.resize(449, 575)
+        MainWindow.setMinimumSize(QSize(449, 575))
+        MainWindow.setMaximumSize(QSize(449, 775))
         icon = QIcon()
         icon.addFile(u":/ico/Icons/ico/phils-hub.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -722,7 +722,7 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy2)
-        self.groupBox.setMinimumSize(QSize(0, 151))
+        self.groupBox.setMinimumSize(QSize(0, 158))
         self.groupBox.setMaximumSize(QSize(16777215, 16777215))
         self.groupBox.setStyleSheet(u"QGroupBox {\n"
 "	border: none;\n"
@@ -828,7 +828,7 @@ class Ui_MainWindow(object):
         self.groupBox_4.setObjectName(u"groupBox_4")
         sizePolicy2.setHeightForWidth(self.groupBox_4.sizePolicy().hasHeightForWidth())
         self.groupBox_4.setSizePolicy(sizePolicy2)
-        self.groupBox_4.setMinimumSize(QSize(0, 151))
+        self.groupBox_4.setMinimumSize(QSize(0, 158))
         self.groupBox_4.setMaximumSize(QSize(16777215, 16777215))
         self.groupBox_4.setStyleSheet(u"QGroupBox {border: none;}")
         self.verticalLayout_10 = QVBoxLayout(self.groupBox_4)

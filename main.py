@@ -10,7 +10,7 @@ ENV = 'PROD' if isExecutable() else 'DEV'
 
 def setupLogging():
     # Set up the log file path
-    log_file_path = os.path.join(os.getcwd(), 'Phils-Hub', 'Logs', 'code waw stock map script placer.log')
+    log_file_path = os.path.join(os.getcwd(), 'Phils-Hub', 'Logs', 'code waw stock map script placer.log')  # the file handler does not like hyphens, forward slashes, etc.
 
     # Create the log directory if it doesn't exist
     if not os.path.exists(os.path.dirname(log_file_path)):
