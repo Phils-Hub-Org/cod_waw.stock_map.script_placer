@@ -25,8 +25,8 @@ Now you can click submit again and it will create the mod.
 ## Note
 
 The following maps only have a few files (all .gsc from raw) available, due to the FF extractor failing to do its job.
-sp_pel1a (Burn 'Em Out)
-mp_shrine (Cliffside)
+- sp_pel1a (Burn 'Em Out)
+- mp_shrine (Cliffside)
 
 ## Addtional Notes
 ff extractor (for extracting the stock base files yourself)
@@ -55,5 +55,6 @@ This project is open source and free to use, modify, and distribute under the te
 This is a Phils-Hub community-contributed project.
 
 ## Screen Shots ##
-![image](https://github.com/user-attachments/assets/c34912f4-6de6-4478-b27b-c64a26a463c1)
+![image](https://github.com/user-attachments/assets/15d3e9b8-3f2d-42ae-9cb4-be9ed55ca2a7)
+
 
