@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowQyMixT.ui'
+## Form generated from reading UI file 'main_windowrSZRFv.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -26,9 +26,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(449, 575)
-        MainWindow.setMinimumSize(QSize(449, 575))
-        MainWindow.setMaximumSize(QSize(449, 775))
+        MainWindow.resize(449, 591)
+        MainWindow.setMinimumSize(QSize(449, 591))
+        MainWindow.setMaximumSize(QSize(449, 791))
         icon = QIcon()
         icon.addFile(u":/ico/Icons/ico/phils-hub.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -715,6 +715,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.label_3)
 
+        self.shortcut_cbox = QCheckBox(self.frame)
+        self.shortcut_cbox.setObjectName(u"shortcut_cbox")
+        self.shortcut_cbox.setStyleSheet(u"QCheckBox {padding-left: 5px;}")
+
+        self.verticalLayout_2.addWidget(self.shortcut_cbox)
+
         self.groupBox = QGroupBox(self.frame)
         self.groupBox.setObjectName(u"groupBox")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
@@ -1040,6 +1046,11 @@ class Ui_MainWindow(object):
         self.mod_name_input.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter ModName", None))
         self.submit_btn.setText(QCoreApplication.translate("MainWindow", u"Submit", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ModName Example: nazi_zombie_prototype | nacht | myTestMap1", None))
+#if QT_CONFIG(tooltip)
+        self.shortcut_cbox.setToolTip(QCoreApplication.translate("MainWindow", u"e.g.\n"
+"'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'", None))
+#endif // QT_CONFIG(tooltip)
+        self.shortcut_cbox.setText(QCoreApplication.translate("MainWindow", u"Add CodWaW.exe shortcut to desktop with args for quick map loading?", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"SP", None))
         self.sp_ber1_cbox.setText(QCoreApplication.translate("MainWindow", u"Ring of Steel (ber1)", None))
         self.sp_ber2_cbox.setText(QCoreApplication.translate("MainWindow", u"Eviction (ber2)", None))

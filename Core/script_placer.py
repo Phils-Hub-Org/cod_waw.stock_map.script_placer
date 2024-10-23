@@ -1,6 +1,6 @@
 import os, shutil, logging
 from PySide6.QtCore import QThread, Signal, QTimer
-from Utils.py_utility import isExecutable, getTempUnpackPath
+from Utils.py_utility import isExecutable, createShortcut
 from Utils.qt_utility import displayMessageBox
 
 logger = logging.getLogger(__name__)
@@ -9,17 +9,52 @@ class FileCopyWorker(QThread):
     # Define a signal that emits when copying is done
     finished = Signal(str)
 
-    def __init__(self, src, dest, modName, mapName, mode):
+    def __init__(self, src, dest, modName, mapName, mode, create_shortcut=False):
         super().__init__()
         self.src = src
         self.dest = dest
         self.modName = modName
         self.mapName = mapName
         self.mode = mode
+        self.create_shortcut = create_shortcut
 
     def run(self):
         try:
             shutil.copytree(self.src, self.dest, dirs_exist_ok=True)
+
+            # create shortcut
+            if self.create_shortcut:
+                if isExecutable():
+                    wawRoot = os.getcwd()
+                else:
+                    # set YOUR waw root directory here
+                    wawRoot = r'D:\SteamLibrary\steamapps\common\Call of Duty World at War'
+
+                wawExeName = f'CoDWaW'
+
+                wawArgs = rf'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'
+
+                wawPath = rf'"{wawRoot}\{wawExeName}.exe"'  # root + exe requires to be wrapped in double quotes
+
+                newShortcutPath = os.path.expanduser(rf'~\Desktop\{self.modName}.lnk')  # store on users desktop
+
+                iconPath = rf'{wawRoot}\{wawExeName}.ico'
+
+                startInPath = wawRoot  # "Start In" path (working directory)
+
+                createShortcut(
+                    # this is the "Target" Path (exe > properties > shorcut tab > target path field)
+                    target=wawPath,
+                    # store shortcut on the user's desktop with correct extension
+                    shortcut_dest=newShortcutPath,
+                    # Set icon
+                    icon_path=iconPath,
+                    # set the target path args
+                    args=wawArgs,
+                    # set the "Start In" path
+                    start_in=startInPath
+                )
+
             self.finished.emit(f"Successfully created {self.modName} for {self.mapName} on {self.mode}")
         except Exception as err:
             self.finished.emit(f"Error occurred. Check error_log.txt for more details.")
@@ -217,7 +252,7 @@ class ScriptPlacer:
 
             # Use shutil.copytree to copy the folder and its contents
             # Create and start the worker thread
-            self.copy_worker = FileCopyWorker(template_files_dir, destination_dir, modName, mapName, mode)
+            self.copy_worker = FileCopyWorker(template_files_dir, destination_dir, modName, mapName, mode, create_shortcut=self.ui.shortcut_cbox.isChecked())
             self.copy_worker.finished.connect(self.updateStatusMessage)  # Connect signal to the slot
             self.copy_worker.start()
         except Exception as e:
