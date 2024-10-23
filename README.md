@@ -18,7 +18,8 @@ If first time creating a mod:
   
 - It will inform you that a directory does not exist, this is normal.
 - Navigate to the `waw_root/Phils-Hub/Stock-Map Script-Placer` directory and place the `Stock Map Files` folder into it.
-- All modes (sp, mp, zm) go into `waw_root/Phils-Hub/Stock-Map Script-Placer/Stock Base Files`.
+- All modes (sp, mp, zm) go into the `waw_root/Phils-Hub/Stock-Map Script-Placer/Stock Base Files` directory.
+- The tool will not break when the `Stock Map Files` folder isn't present, you can also utilize the tool for a specific mode if you don't mod all modes. Meaning you can safely only have an 'sp' folder in the `Stock Map Files` folder for example. It just means that you will see that error pop-up message if you try to create a mod for a mode of which the base files aren't present.
 
 Now you can click submit again and it will create the mod.
 
