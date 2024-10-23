@@ -22,6 +22,12 @@ If first time creating a mod:
 
 Now you can click submit again and it will create the mod.
 
+## Note
+
+The following maps only have a few files (all .gsc from raw) available, due to the FF extractor failing to do its job.
+sp_pel1a (Burn 'Em Out)
+mp_shrine (Cliffside)
+
 ## Addtional Notes
 ff extractor (for extracting the stock base files yourself)
 source
