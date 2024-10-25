@@ -1,37 +1,37 @@
 from PySide6.QtWidgets import QApplication, QMessageBox
 
 def displayMessageBox(message: str, x: int = 100, y: int = None) -> None:
-    msg_box = QMessageBox()
-    msg_box.setIcon(QMessageBox.Information)
-    msg_box.setWindowTitle("Information")
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
+    msgBox = QMessageBox()
+    msgBox.setIcon(QMessageBox.Information)
+    msgBox.setWindowTitle("Information")
+    msgBox.setText(message)
+    msgBox.setStandardButtons(QMessageBox.Ok)
     
     if y is None:
         # Get screen geometry and center vertically
         _, screenHeight = getScreenDimms()
-        msg_box_height = msg_box.sizeHint().height()
-        y = (screenHeight - msg_box_height) // 2  # Vertically center
+        msgBox_height = msgBox.sizeHint().height()
+        y = (screenHeight - msgBox_height) // 2  # Vertically center
     
-    msg_box.move(x, y)  # Set position
+    msgBox.move(x, y)  # Set position
     
-    msg_box.exec()
+    msgBox.exec()
 
 def displayYesNoMessageBox(message: str) -> bool:
-    msg_box = QMessageBox()
-    msg_box.setIcon(QMessageBox.Question)
-    msg_box.setWindowTitle("Confirmation")
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    msg_box.setDefaultButton(QMessageBox.No)
-    result = msg_box.exec()
+    msgBox = QMessageBox()
+    msgBox.setIcon(QMessageBox.Question)
+    msgBox.setWindowTitle("Confirmation")
+    msgBox.setText(message)
+    msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    msgBox.setDefaultButton(QMessageBox.No)
+    result = msgBox.exec()
     return result == QMessageBox.Yes
 
 def getScreenDimms() -> tuple[int, int]:
     screen = QApplication.primaryScreen()
-    screen_geometry = screen.geometry()
+    screenGeometry = screen.geometry()
 
-    screen_width = screen_geometry.width()
-    screen_height = screen_geometry.height()
+    screenWidth = screenGeometry.width()
+    screenHeight = screenGeometry.height()
 
-    return screen_width, screen_height
+    return screenWidth, screenHeight
