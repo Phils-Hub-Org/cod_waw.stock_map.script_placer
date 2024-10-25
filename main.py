@@ -1,14 +1,21 @@
 import os, sys, logging
 from logging.handlers import RotatingFileHandler
 from PySide6.QtWidgets import QApplication
-from Core.main_window import MainWindow
-from Core.script_placer import ScriptPlacer
-from Utils.py_utility import isExecutable
-from Utils.qt_utility import displayMessageBox
+import Utils.py_utility as PyUtility
+import Utils.qt_utility as QtUtility
 
-ENV = 'PROD' if isExecutable() else 'DEV'
+ENV = 'PROD' if PyUtility.isExecutable() else 'DEV'
 
-def setupLogging():
+# if not exe, then the template files are in cwd (vscode proj dir), and obv the dest for said files is still waw dir.
+if PyUtility.isExecutable():
+    currentWorkingDir = os.getcwd()
+    wawRootDir = currentWorkingDir
+else:
+    currentWorkingDir = os.getcwd()
+    # set YOUR waw root directory here
+    wawRootDir = r'D:\SteamLibrary\steamapps\common\Call of Duty World at War'
+
+def setupLogging() -> None:
     # Set up the log file path
     log_file_path = os.path.join(os.getcwd(), 'Phils-Hub', 'Logs', 'code waw stock map script placer.log')  # the file handler does not like hyphens, forward slashes, etc.
 
@@ -35,22 +42,24 @@ def setupLogging():
 class Entry:
 
     @classmethod
-    def init(cls):
+    def init(cls) -> None:
         
         # Initialize main window
+        from Core.main_window import MainWindow
         cls.mainWindow = MainWindow()
 
         # Display environment status
         logging.info(f'Running in {ENV} mode')
 
         # if running via exe, then ensure program is in the correct (waw) directory
-        if isExecutable():
+        if PyUtility.isExecutable():
             if not r'SteamLibrary\steamapps\common\Call of Duty World at War' in os.getcwd():
-                displayMessageBox("Error, Please run this program from the Call of Duty: World at War steam directory")
+                QtUtility.displayMessageBox("Error, Please run this program from the Call of Duty: World at War steam directory")
                 sys.exit(0)
 
         # Initialize script placer
-        cls.scriptPlacer = ScriptPlacer(cls.mainWindow)
+        from Core.script_placer import ScriptPlacer
+        cls.scriptPlacer = ScriptPlacer(cls.mainWindow, currentWorkingDir, wawRootDir)
 
         # Show main window
         cls.mainWindow.show()

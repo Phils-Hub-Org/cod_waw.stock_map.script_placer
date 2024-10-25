@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, subprocess, winshell
 from win32com.client import Dispatch
 
 def printProjectStructure(root_dir: str=os.getcwd(), files_to_ignore: list=[], folders_to_ignore: list=[], indent: int=0) -> None:
@@ -14,10 +14,10 @@ def printProjectStructure(root_dir: str=os.getcwd(), files_to_ignore: list=[], f
                 continue
             print("  " * indent + f"📄 {item}")
 
-def isExecutable():
+def isExecutable() -> bool:
     return getattr(sys, 'frozen', False)
 
-def getTempUnpackPath():
+def getTempUnpackPath() -> str:
     # When running as an executable, PyInstaller unpacks embedded files into a temporary directory
     unpack_path = os.path.join(sys._MEIPASS)
 
@@ -35,6 +35,25 @@ def createShortcut(target: str, shortcut_dest: str, icon_path: str = None, args:
     if start_in:
         shortcut.WorkingDirectory = start_in  # Set the "Start In" directory
     shortcut.save()
+
+def runExecutable(running_dir, exe_path, exe_args) -> None:
+    """
+    Runs the given executable with no arguments.
+    exe_path: Path to the executable file
+    """
+
+    os.chdir(running_dir)
+
+    try:
+        subprocess.Popen(
+            [exe_path, exe_args],
+            creationflags=subprocess.CREATE_NEW_CONSOLE
+        )
+        print(f"Successfully ran {exe_path}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while running {exe_path}: {e}")
+    except FileNotFoundError:
+        print(f"Executable not found: {exe_path}")
 
 if __name__ == "__main__":
     printProjectStructure(

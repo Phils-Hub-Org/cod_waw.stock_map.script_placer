@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowrSZRFv.ui'
+## Form generated from reading UI file 'main_windowpVYmEm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -26,9 +26,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(449, 591)
-        MainWindow.setMinimumSize(QSize(449, 591))
-        MainWindow.setMaximumSize(QSize(449, 791))
+        MainWindow.resize(449, 641)
+        MainWindow.setMinimumSize(QSize(449, 641))
+        MainWindow.setMaximumSize(QSize(449, 741))
         icon = QIcon()
         icon.addFile(u":/ico/Icons/ico/phils-hub.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -520,7 +520,7 @@ class Ui_MainWindow(object):
 "/* Hovered checkbox */\n"
 "QCheckBox::indicator:hover {\n"
 "    background-color: #3b73b4;      /* Light blue on hover */\n"
-"    border-color: #ff050d;          /* Darker blue border on hover */\n"
+"    border-color: #0dce1d;          /* Darker blue border on hover */\n"
 "}\n"
 "\n"
 "/*\n"
@@ -537,7 +537,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QCheckBox::indicator:checked:hover {\n"
-"    border-color: #0dce1d;\n"
+"    border-color: #ff050d;\n"
 "}\n"
 "\n"
 "/* Indeterminate checkbox (for tri-state checkboxes) */\n"
@@ -692,6 +692,7 @@ class Ui_MainWindow(object):
         self.mod_name_input = QLineEdit(self.frame_5)
         self.mod_name_input.setObjectName(u"mod_name_input")
         self.mod_name_input.setMinimumSize(QSize(0, 28))
+        self.mod_name_input.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.mod_name_input.setStyleSheet(u"QLineEdit {padding: 3px;}")
         self.mod_name_input.setMaxLength(35)
 
@@ -721,9 +722,21 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.shortcut_cbox)
 
+        self.build_mod_cbox = QCheckBox(self.frame)
+        self.build_mod_cbox.setObjectName(u"build_mod_cbox")
+        self.build_mod_cbox.setStyleSheet(u"QCheckBox {padding-left: 5px;}")
+
+        self.verticalLayout_2.addWidget(self.build_mod_cbox)
+
+        self.run_map_cbox = QCheckBox(self.frame)
+        self.run_map_cbox.setObjectName(u"run_map_cbox")
+        self.run_map_cbox.setStyleSheet(u"QCheckBox {padding-left: 5px;}")
+
+        self.verticalLayout_2.addWidget(self.run_map_cbox)
+
         self.groupBox = QGroupBox(self.frame)
         self.groupBox.setObjectName(u"groupBox")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
@@ -1050,7 +1063,9 @@ class Ui_MainWindow(object):
         self.shortcut_cbox.setToolTip(QCoreApplication.translate("MainWindow", u"e.g.\n"
 "'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'", None))
 #endif // QT_CONFIG(tooltip)
-        self.shortcut_cbox.setText(QCoreApplication.translate("MainWindow", u"Add CodWaW.exe shortcut to desktop with args for quick map loading?", None))
+        self.shortcut_cbox.setText(QCoreApplication.translate("MainWindow", u"Add CodWaW.exe shortcut to desktop with args for quick map loading ?", None))
+        self.build_mod_cbox.setText(QCoreApplication.translate("MainWindow", u"Build Mod ?", None))
+        self.run_map_cbox.setText(QCoreApplication.translate("MainWindow", u"Run Map ?", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"SP", None))
         self.sp_ber1_cbox.setText(QCoreApplication.translate("MainWindow", u"Ring of Steel (ber1)", None))
         self.sp_ber2_cbox.setText(QCoreApplication.translate("MainWindow", u"Eviction (ber2)", None))
