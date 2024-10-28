@@ -1,5 +1,6 @@
-import os, sys, subprocess, winshell
+import os, sys, logging, subprocess
 from win32com.client import Dispatch
+logger = logging.getLogger(__name__)
 
 def printProjectStructure(root_dir: str=os.getcwd(), files_to_ignore: list=[], folders_to_ignore: list=[], indent: int=0) -> None:
     for item in os.listdir(root_dir):
@@ -49,11 +50,11 @@ def runExecutable(running_dir, exe_path, exe_args) -> None:
             [exe_path, exe_args],
             creationflags=subprocess.CREATE_NEW_CONSOLE
         )
-        print(f"Successfully ran {exe_path}")
+        logger.debug(f"Successfully ran {exe_path}")
     except subprocess.CalledProcessError as e:
-        print(f"Error occurred while running {exe_path}: {e}")
+        logger.info(f"Error occurred while running {exe_path}: {e}")
     except FileNotFoundError:
-        print(f"Executable not found: {exe_path}")
+        logger.info(f"Executable not found: {exe_path}")
 
 if __name__ == "__main__":
     printProjectStructure(

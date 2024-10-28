@@ -66,10 +66,10 @@ class ScriptPlacer:
                 "mp_vodka": self.ui.mp_vodka_cbox
             },
             'zm': {
-                "prototype": self.ui.zm_prototype_cbox,
-                "asylum": self.ui.zm_asylum_cbox,
-                "sumpf": self.ui.zm_sumpf_cbox,
-                "factory": self.ui.zm_factory_cbox
+                "nazi_zombie_prototype": self.ui.zm_prototype_cbox,
+                "nazi_zombie_asylum": self.ui.zm_asylum_cbox,
+                "nazi_zombie_sumpf": self.ui.zm_sumpf_cbox,
+                "nazi_zombie_factory": self.ui.zm_factory_cbox
             }
         }
 
@@ -105,6 +105,7 @@ class ScriptPlacer:
         self.ui.submit_btn.setEnabled(False)
 
         # in-case user didn't prev close the console (only possible if there was an error)
+        self.warningOrErrorOccuredDuringBuild = False
         self.warningOrErrorLogs.clear()
         self.console.ui.console.clear()
         self.console.ui.close_console_btn.hide()
@@ -189,15 +190,40 @@ class ScriptPlacer:
         # get this check out of the way now to preven multiple builds
         self.createShortcut = self.ui.shortcut_cbox.isChecked()
         self.runExecutable = self.ui.run_map_cbox.isChecked()
+        self.insertIngamePrintMsg = self.ui.insert_ingame_print_msg_cbox.isChecked()
 
         # Use shutil.copytree to copy the folder and its contents
         # Create and start the worker thread
-        self.copy_worker = FileCopyWorker(self.wawRootDir, templateFilesDir, modDir, modName, mapName, mode, create_shortcut=self.createShortcut, build_mod=self.ui.build_mod_cbox.isChecked(), run_executable=self.runExecutable)
+        self.copy_worker = FileCopyWorker(
+            wawRootDir=self.wawRootDir,
+            src=templateFilesDir, dest=modDir,
+            modName=modName, mapName=mapName, mode=mode,
+            create_shortcut=self.createShortcut,
+            insert_ingame_print_msg=self.insertIngamePrintMsg,
+            build_mod=self.ui.build_mod_cbox.isChecked(),
+            run_executable=self.runExecutable
+        
+        )
         # Connect signals and slots
         self.copy_worker.show_console.connect(self.showConsole)
-        self.copy_worker.update_console.connect(self.updateConsole)
         self.copy_worker.update_status_bar.connect(self.updateStatusBar)
+        self.copy_worker.send_display_message_box_message.connect(self.sendDisplayMessageBoxMessage)
         self.copy_worker.finished.connect(self.onWorkerFinished)
+
+        # mod.ff & iwd
+        self.copy_worker.build_output_handle.connect(self.buildOutputHandleSlot)
+        # self.copy_worker.build_interrupted_handle.connect(self.buildInterruptedHandleSlot)  # this feature is not required for this app.
+        
+        # mod.ff
+        self.copy_worker.build_output_warning_handle.connect(self.buildModFFWarningOutputHandleSlot)
+        self.copy_worker.build_output_error_handle.connect(self.buildModFFErrorOutputHandleSlot)
+        self.copy_worker.build_modff_success_handle.connect(self.buildModFFSuccessHandleSlot)
+        self.copy_worker.build_modff_failure_handle.connect(self.buildModFFFailureHandleSlot)
+        
+        # iwd
+        self.copy_worker.build_iwd_success_handle.connect(self.buildIWDSuccessHandleSlot)
+        self.copy_worker.build_iwd_failure_handle.connect(self.buildIWDFailureHandleSlot)
+
         self.copy_worker.start()
 
     @Slot(bool)
@@ -211,26 +237,62 @@ class ScriptPlacer:
         self.warningOrErrorOccuredDuringBuild = False
         self.warningOrErrorLogs.clear()
     
+    @Slot(str, int)
+    def updateStatusBar(self, message, delay=3000) -> None:
+        self.ui.statusBar.showMessage(message, delay)
+    
     @Slot(str)
-    def updateConsole(self, message) -> None:
-        # WARNING: bad type '""'.
-        # ERROR: Could not open 'vision/vampire_high.visio'
-        if 'WARNING' in message or 'ERROR' in message:
-            self.updateStatusBar('WARNING occured during build' if 'WARNING' in message else 'ERROR occured during build', 0)
-            self.warningOrErrorOccuredDuringBuild = True
-            self.warningOrErrorLogs.append(message)
+    def sendDisplayMessageBoxMessage(self, message: str) -> None:
+        QtUtility.displayMessageBox(message)
+
+    # mod.ff & iwd
+    @Slot(str)
+    def buildOutputHandleSlot(self, message: str) -> None:
         self.console.ui.console.appendPlainText(message)
     
+    # @Slot(str)
+    # def buildInterruptedHandleSlot(self, message: str) -> None:
+    #     print(f'On process interrupted: {message}')
+    
+    # mod.ff
+    @Slot(str)
+    def buildModFFWarningOutputHandleSlot(self, message: str) -> None:
+        self.updateStatusBar('WARNING occured during modff build')
+        self.warningOrErrorOccuredDuringBuild = True
+        self.warningOrErrorLogs.append(message)
+    
+    @Slot(str)
+    def buildModFFErrorOutputHandleSlot(self, message: str) -> None:
+        self.updateStatusBar('ERROR occured during modff build')
+        self.warningOrErrorOccuredDuringBuild = True
+        self.warningOrErrorLogs.append(message)
+    
+    @Slot(str)
+    def buildModFFSuccessHandleSlot(self, message: str) -> None:
+        # self.updateStatusBar(message, 25)
+        logger.debug(f'On build modff success: {message}')  # 'All steps completed successfully'
+    
+    @Slot(str)
+    def buildModFFFailureHandleSlot(self, message: str) -> None:
+        logger.info(f'On build modff failure: {message}')
+    
+    # iwd
+    @Slot(str)
+    def buildIWDSuccessHandleSlot(self, message: str) -> None:
+        # self.updateStatusBar(message, 25)
+        logger.debug(f'On build iwd success: {message}')  # 'All steps completed successfully'
+    
+    @Slot(str)
+    def buildIWDFailureHandleSlot(self, message: str) -> None:
+        logger.info(f'On build iwd failure: {message}')
+
     @Slot(bool, str)
-    def onWorkerFinished(self, success, status_message) -> None:
+    def onWorkerFinished(self, result, message) -> None:
         delay = 5000
 
-        # scroll to the bottom, sometimes it doesnt do it fully automatically
-        self.console.ui.console.verticalScrollBar().setValue(self.console.ui.console.verticalScrollBar().maximum())
-
-        if success:
-            self.updateStatusBar(status_message, delay)
-
+        if result:
+            self.updateStatusBar(message, delay)
+            
             if self.warningOrErrorOccuredDuringBuild:
                 self.console.ui.console.appendPlainText('\n/************** Here is the list of warnings/errors. *****************/')
                 self.console.ui.console.appendPlainText('\n'.join(self.warningOrErrorLogs))
@@ -238,14 +300,11 @@ class ScriptPlacer:
             else:
                 self.console.ui.console.clear()
                 self.console.hide()
+
+            # scroll to the bottom, sometimes it doesnt do it fully automatically
+            self.console.ui.console.verticalScrollBar().setValue(self.console.ui.console.verticalScrollBar().maximum() + 100)
         else:
-            self.console.ui.close_console_btn.show()
-            QtUtility.displayMessageBox('Error, Check log file for more details.')
+            QtUtility.displayMessageBox(message)
         
         # if failure, the displayMessageBox is blocking, so have the mod creation delay start after the messageBox has been closed.
-        # enable the submit button
         QTimer.singleShot(delay, lambda: self.ui.submit_btn.setEnabled(True))
-
-    @Slot(str, int)
-    def updateStatusBar(self, message, delay=3000) -> None:
-        self.ui.statusBar.showMessage(message, delay)

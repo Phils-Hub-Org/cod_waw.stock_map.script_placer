@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowpVYmEm.ui'
+## Form generated from reading UI file 'main_windowtfvDxl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -18,17 +18,17 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGroupBox,
     QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-    QMenu, QMenuBar, QPushButton, QScrollArea,
-    QSizePolicy, QStatusBar, QVBoxLayout, QWidget)
+    QPushButton, QScrollArea, QSizePolicy, QStatusBar,
+    QVBoxLayout, QWidget)
 import Resources.resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(449, 641)
-        MainWindow.setMinimumSize(QSize(449, 641))
-        MainWindow.setMaximumSize(QSize(449, 741))
+        MainWindow.resize(449, 634)
+        MainWindow.setMinimumSize(QSize(449, 634))
+        MainWindow.setMaximumSize(QSize(449, 734))
         icon = QIcon()
         icon.addFile(u":/ico/Icons/ico/phils-hub.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -722,6 +722,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.shortcut_cbox)
 
+        self.insert_ingame_print_msg_cbox = QCheckBox(self.frame)
+        self.insert_ingame_print_msg_cbox.setObjectName(u"insert_ingame_print_msg_cbox")
+        self.insert_ingame_print_msg_cbox.setStyleSheet(u"QCheckBox {padding-left: 5px;}")
+
+        self.verticalLayout_2.addWidget(self.insert_ingame_print_msg_cbox)
+
         self.build_mod_cbox = QCheckBox(self.frame)
         self.build_mod_cbox.setObjectName(u"build_mod_cbox")
         self.build_mod_cbox.setStyleSheet(u"QCheckBox {padding-left: 5px;}")
@@ -1032,17 +1038,6 @@ class Ui_MainWindow(object):
         self.statusBar.setObjectName(u"statusBar")
         self.statusBar.setSizeGripEnabled(True)
         MainWindow.setStatusBar(self.statusBar)
-        self.menuBar = QMenuBar(MainWindow)
-        self.menuBar.setObjectName(u"menuBar")
-        self.menuBar.setGeometry(QRect(0, 0, 449, 29))
-        self.menuBar.setDefaultUp(False)
-        self.menuBar.setNativeMenuBar(True)
-        self.menuFile = QMenu(self.menuBar)
-        self.menuFile.setObjectName(u"menuFile")
-        MainWindow.setMenuBar(self.menuBar)
-
-        self.menuBar.addAction(self.menuFile.menuAction())
-        self.menuFile.addAction(self.actionAbout)
 
         self.retranslateUi(MainWindow)
 
@@ -1063,7 +1058,14 @@ class Ui_MainWindow(object):
         self.shortcut_cbox.setToolTip(QCoreApplication.translate("MainWindow", u"e.g.\n"
 "'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'", None))
 #endif // QT_CONFIG(tooltip)
-        self.shortcut_cbox.setText(QCoreApplication.translate("MainWindow", u"Add CodWaW.exe shortcut to desktop with args for quick map loading ?", None))
+        self.shortcut_cbox.setText(QCoreApplication.translate("MainWindow", u"Add shortcut to desktop (w/ args) ..for quick map loading ?", None))
+#if QT_CONFIG(tooltip)
+        self.insert_ingame_print_msg_cbox.setToolTip(QCoreApplication.translate("MainWindow", u"Example of in-game print message:\n"
+"'zm_test1 built successfully!'\n"
+"\n"
+"Currently only available for mode: zm", None))
+#endif // QT_CONFIG(tooltip)
+        self.insert_ingame_print_msg_cbox.setText(QCoreApplication.translate("MainWindow", u"Insert an in-game print message to confirm build ?", None))
         self.build_mod_cbox.setText(QCoreApplication.translate("MainWindow", u"Build Mod ?", None))
         self.run_map_cbox.setText(QCoreApplication.translate("MainWindow", u"Run Map ?", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"SP", None))
@@ -1111,6 +1113,5 @@ class Ui_MainWindow(object):
         self.zm_asylum_cbox.setText(QCoreApplication.translate("MainWindow", u"Verr\u00fcckt (nazi_zombie_asylum)", None))
         self.zm_sumpf_cbox.setText(QCoreApplication.translate("MainWindow", u"Shi No Numa (nazi_zombie_sumpf)", None))
         self.zm_factory_cbox.setText(QCoreApplication.translate("MainWindow", u"Der Riese (nazi_zombie_factory)", None))
-        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
     # retranslateUi
 
