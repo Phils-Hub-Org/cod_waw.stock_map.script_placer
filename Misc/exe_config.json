@@ -43,11 +43,11 @@
   },
   {
    "optionDest": "version_file",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/--misc/version.txt"
+   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc/version.txt"
   },
   {
    "optionDest": "manifest",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/--misc/script_placer.manifest"
+   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc/script_placer.manifest"
   },
   {
    "optionDest": "uac_admin",
@@ -67,7 +67,15 @@
   },
   {
    "optionDest": "datas",
+   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Components;Components/"
+  },
+  {
+   "optionDest": "datas",
    "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Core;Core/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc;Misc/"
   },
   {
    "optionDest": "datas",
