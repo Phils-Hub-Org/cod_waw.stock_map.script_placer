@@ -1,6 +1,6 @@
-import os, sys, logging, subprocess
+import os, sys, subprocess
 from win32com.client import Dispatch
-logger = logging.getLogger(__name__)
+from typing import Union
 
 def printProjectStructure(root_dir: str=os.getcwd(), files_to_ignore: list=[], folders_to_ignore: list=[], indent: int=0) -> None:
     for item in os.listdir(root_dir):
@@ -37,24 +37,24 @@ def createShortcut(target: str, shortcut_dest: str, icon_path: str = None, args:
         shortcut.WorkingDirectory = start_in  # Set the "Start In" directory
     shortcut.save()
 
-def runExecutable(running_dir, exe_path, exe_args) -> None:
+def runExecutable(running_dir: str, exe_path: str, exe_args: str) -> Union[bool, str]:
     """
     Runs the given executable with no arguments.
     exe_path: Path to the executable file
     """
 
-    os.chdir(running_dir)
+    os.chdir(running_dir)  # required
 
     try:
         subprocess.Popen(
             [exe_path, exe_args],
             creationflags=subprocess.CREATE_NEW_CONSOLE
         )
-        logger.debug(f"Successfully ran {exe_path}")
+        return True, f"Successfully ran {exe_path}"
     except subprocess.CalledProcessError as e:
-        logger.info(f"Error occurred while running {exe_path}: {e}")
+        return False, f"Error occurred while running {exe_path}: {e}"
     except FileNotFoundError:
-        logger.info(f"Executable not found: {exe_path}")
+        return False, f"Executable not found: {exe_path}"
 
 if __name__ == "__main__":
     printProjectStructure(
@@ -71,6 +71,7 @@ if __name__ == "__main__":
             '--archived',
             '--misc',
             'Phils-Hub',
-            'Tests'
+            'Tests',
+            'Stock Base Files'
         ]
     )

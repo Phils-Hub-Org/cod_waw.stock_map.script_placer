@@ -1,9 +1,9 @@
 import os, shutil, logging, subprocess
 from PySide6.QtCore import QThread, Signal
 import Utils.py_utility as PyUtility
-import Core.build_mod_ff as build_mod_ff
-import Core.build_iwd as build_iwd
-from Utils.insert_gsc_code import insertMarkerToConfirmTheBuildsValidity
+import Components.build_mod_ff as build_mod_ff
+import Components.build_iwd as build_iwd
+import Components.insert_gsc_code as insert_gsc_code
 
 logger = logging.getLogger(__name__)
 
@@ -41,27 +41,17 @@ class FileCopyWorker(QThread):
         self.run_executable = run_executable
         self.insert_ingame_print_msg = insert_ingame_print_msg
 
+        self.exeName = 'CoDWaW' if self.mode != 'mp' else 'CoDWaWmp'
+
     def run(self):
-        # add any checks here
-        if self.insert_ingame_print_msg:
-            if self.mode != 'zm':
-                # self.send_display_message_box_message.emit(msg)  # utilized the 'finished' signal instead
-                self.exitWorker(False, f'The in-game print message option is not available for {self.mode}')
-                return  # return to ensure nothing else gets executed / worker is exited
-        
-        # safe to continue
         try:
             self.copyFiles()
-            # QThread.msleep(500)  # give the copyFiles function a little extra time
-            # turns out it wasnt needed
         
             if self.create_shortcut:
                 self.createShortcut(self.wawRootDir)
             
             if self.insert_ingame_print_msg:
                 self.insertIngamePrintMsg()
-                # QThread.msleep(500)  # give the ingame print msg function a little extra time
-                # turns out it wasnt needed
 
             if self.build_mod:
                 self.show_console.emit(True)
@@ -84,12 +74,11 @@ class FileCopyWorker(QThread):
         shutil.copytree(self.src, self.dest, dirs_exist_ok=True)
 
     def createShortcut(self, wawRootDir):
-        wawExeName = f'CoDWaW' if self.mode != 'mp' else 'CoDWaWmp'
         wawArgs = rf'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'
-        wawPath = rf'"{wawRootDir}\{wawExeName}.exe"'  # root + exe requires to be wrapped in double quotes
+        wawPath = rf'"{wawRootDir}\{self.exeName}.exe"'  # root + exe requires to be wrapped in double quotes
 
         newShortcutPath = os.path.expanduser(rf'~\Desktop\{self.modName}.lnk')  # store on users desktop
-        iconPath = rf'{wawRootDir}\{wawExeName}.ico'
+        iconPath = rf'{wawRootDir}\{self.exeName}.ico'
         if not os.path.exists(iconPath):
             iconPath = None
         startInPath = wawRootDir  # "Start In" path (working directory)
@@ -159,33 +148,46 @@ class FileCopyWorker(QThread):
 
     def runExecutable(self):
         dir = self.wawRootDir if not PyUtility.isExecutable() else os.getcwd()
-        PyUtility.runExecutable(
+        _, message = PyUtility.runExecutable(
             running_dir=dir,
-            exe_path=os.path.join(dir, 'CoDWaW.exe'),
+            exe_path=os.path.join(dir, f'{self.exeName}.exe'),
             exe_args=rf'+set fs_game mods/{self.modName} +devmap {self.mapName} +set r_fullscreen 0'
         )
+        logger.debug(message)
 
     def insertIngamePrintMsg(self):
         message = f'Mod: {self.modName} was built successfully!'
 
-        append_str = f"""post() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
+        match self.mode:
+            case 'sp':
+                line_identifier = r'maps\_load::main('
+                file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+    wait 10;
+    iPrintLn( "{message}" );
+}}"""
+            case 'mp':
+                line_identifier = r'maps\mp\_load::main('
+                file_path = os.path.join(self.dest, 'maps', 'mp', f'{self.mapName}.gsc')
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+    wait 15;
+    iPrintLn( "{message}" );
+}}"""
+            case 'zm':
+                line_identifier = r'maps\_zombiemode::main('
+                file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
     flag_wait("all_players_connected");
     wait 1;
     iPrintLn( "{message}" );
 }}"""
 
-        # print(self.src)
-        # C:\Users\Phil-\Documents\MEGA\__Workbase__\Phils-Hub\Github\cod_waw.stock_map.script_placer\Phils-Hub\Stock-Map Script-Placer\Stock Base Files\zm\nazi_zombie_prototype
-        # print(self.dest)
-        # D:\SteamLibrary\steamapps\common\Call of Duty World at War\mods\zm_test1
-        
-        # print(os.path.join(self.dest, 'maps', f'{self.mapName}.gsc'))
-        # D:\SteamLibrary\steamapps\common\Call of Duty World at War\mods\zm_test1\maps\nazi_zombie_prototype.gsc
-        # return
+            case _:
+                raise Exception(f'Unknown mode: {self.mode}')
 
-        insertMarkerToConfirmTheBuildsValidity(
-            file_path=os.path.join(self.dest, 'maps', f'{self.mapName}.gsc'),
-            line_identifier=r'maps\_zombiemode::main(',
-            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.0',
+        insert_gsc_code.insertMarkerToConfirmTheBuildsValidity(
+            file_path=file_path,
+            line_identifier=line_identifier,
+            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.1',
             append_str=append_str
         )

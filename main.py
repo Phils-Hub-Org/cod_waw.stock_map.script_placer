@@ -6,11 +6,14 @@ import Utils.qt_utility as QtUtility
 
 ENV = 'PROD' if PyUtility.isExecutable() else 'DEV'
 
-# if not exe, then the template files are in cwd (vscode proj dir), and obv the dest for said files is still waw dir.
+# Dynamically determine where the Phils-Hub folder should be created.
 if PyUtility.isExecutable():
+    # if not exe, then the template files are in cwd (vscode proj dir), and obv the dest for said files is still waw dir.
+    # so place the Stock Base Files folder in your working dir, run program, try to create a mod, it will inform you of missing dir, but it will create a Phils-Hub dir in the working dir, so then navigate to Stock-Map Script-Placer and place the Stock Base Files folder in there. now you can create a mod.
     currentWorkingDir = os.getcwd()
     wawRootDir = currentWorkingDir
 else:
+    # when pkg'd into an exe, run exe, it prompts u of dir, it creates phils-hub dir, you place folder, done. same as above reli, we just switch between where the phils-hub dir is created. this is for automatic dev/prod env changes ofc.
     currentWorkingDir = os.getcwd()
     # set YOUR waw root directory here
     wawRootDir = r'D:\SteamLibrary\steamapps\common\Call of Duty World at War'
@@ -74,4 +77,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logging.info("Application closed by user.")
     except Exception as e:
-        logging.exception("An error occurred: %s", e)
+        logging.exception(f"An error occurred: {e}")

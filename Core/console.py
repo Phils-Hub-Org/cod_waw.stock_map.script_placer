@@ -8,8 +8,7 @@ class Console(QWidget):
         super().__init__()
 
         # remove default window frame / titlebar
-        # set always on top
-        self.setWindowFlags(Qt.FramelessWindowHint)# | Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         self.ui = Ui_ConsoleWidget()
         self.ui.setupUi(self)
