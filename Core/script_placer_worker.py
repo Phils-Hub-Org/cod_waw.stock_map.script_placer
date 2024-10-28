@@ -108,7 +108,8 @@ class FileCopyWorker(QThread):
             buildSuccessHandle=self.build_modff_success_handle.emit,  # 'All steps completed successfully'
             buildFailureHandle=self.build_modff_failure_handle.emit,  # f'Step {step.__name__} failed: {error}'
             buildInterruptedHandle=self.build_interrupted_handle.emit,  # 'Process was interrupted by the user'
-            addSpaceBetweenSteps=True
+            addSpaceBetweenSteps=True,
+            msgGroupSize=10
         )
 
         self.build_output_handle.emit('\n')  # to separate the output
@@ -121,7 +122,7 @@ class FileCopyWorker(QThread):
 
             ### These are all optional args and can be changed ###
             foldersToIgnore=[
-                'sound',
+                # 'sound',
             ],
             filesToIgnore=[],
             extensionsToIgnore=[
@@ -136,14 +137,14 @@ class FileCopyWorker(QThread):
             buildSuccessHandle=self.build_iwd_success_handle.emit,  # 'All steps completed successfully'
             buildFailureHandle=self.build_iwd_failure_handle.emit,  # f'Step {step.__name__} failed: {error}'
             buildInterruptedHandle=self.build_interrupted_handle.emit,  # 'Process was interrupted by the user'
-            addSpaceBetweenSteps=True
+            addSpaceBetweenSteps=True,
+            msgGroupSize=10
         )
     
         self.build_output_handle.emit('\n')  # to separate old output from new
 
     # mod.ff & iwd
     def buildOutputHandleSlot(self, message: str) -> None:
-        QThread.msleep(10)
         self.build_output_handle.emit(message)
 
     def runExecutable(self):
@@ -162,21 +163,21 @@ class FileCopyWorker(QThread):
             case 'sp':
                 line_identifier = r'maps\_load::main('
                 file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
     wait 10;
     iPrintLn( "{message}" );
 }}"""
             case 'mp':
                 line_identifier = r'maps\mp\_load::main('
                 file_path = os.path.join(self.dest, 'maps', 'mp', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
     wait 15;
     iPrintLn( "{message}" );
 }}"""
             case 'zm':
                 line_identifier = r'maps\_zombiemode::main('
                 file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
     flag_wait("all_players_connected");
     wait 1;
     iPrintLn( "{message}" );
@@ -188,6 +189,6 @@ class FileCopyWorker(QThread):
         insert_gsc_code.insertMarkerToConfirmTheBuildsValidity(
             file_path=file_path,
             line_identifier=line_identifier,
-            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.1',
+            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.0',
             append_str=append_str
         )

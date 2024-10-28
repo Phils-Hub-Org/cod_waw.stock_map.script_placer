@@ -5,14 +5,18 @@ from Core.script_placer_worker import FileCopyWorker
 
 logger = logging.getLogger(__name__)
 
+class InputValidationAbort(Exception):
+    """Custom exception to escape input validation warnings and hault the flow of execution"""
+    pass
+
 class ScriptPlacer:
     def __init__(self, mainWindow, currentWorkingDir, wawRootDir) -> None:
         self.mainWindow = mainWindow
         self.currentWorkingDir = currentWorkingDir
         self.wawRootDir = wawRootDir
 
-        self.warningOrErrorOccuredDuringBuild = False
-        self.warningOrErrorLogs = []
+        self.modffWarningOrErrorOccuredDuringBuild = False
+        self.modffWarningOrErrorLogs = []
 
         from Resources.UI.ui_main_window import Ui_MainWindow
         self.ui: Ui_MainWindow = self.mainWindow.ui
@@ -78,71 +82,67 @@ class ScriptPlacer:
     def createMod(self):
         # ensure wawRootDir is valid
         if not os.path.exists(self.wawRootDir):
-            logger.debug(f"wawRootDir: '{self.wawRootDir}' does not exist")
+            msg = f"Error: The wawRootDir '{self.wawRootDir}' does not exist"
+            logger.debug(msg)
+            QtUtility.displayMessageBox(msg)
             return        
         
         try:
             modName, mapName, mode = self.verifyInputs()
-        except Exception:
+        except InputValidationAbort as warning:
+            # Explicitly stop execution if input validation fails
+            self.updateStatusBar(str(warning))
+            return
+        except Exception as err:
+            logger.error(err)
+            QtUtility.displayMessageBox(f'Error: {err}')
             return
         
         # get the template files directory
-        templateFilesRoot = os.path.join(self.currentWorkingDir, 'Phils-Hub',  'Stock-Map Script-Placer')
-        if not os.path.exists(templateFilesRoot):
-            os.makedirs(templateFilesRoot)
+        assetsRootDir = os.path.join(self.currentWorkingDir, 'Phils-Hub',  'Stock-Map Script-Placer')
+        if not os.path.exists(assetsRootDir):
+            os.makedirs(assetsRootDir)
         
         # join the template files root directory with the assets directory
-        templateFilesDir = os.path.join(templateFilesRoot, 'Stock Base Files', mode, mapName)
-        if not os.path.exists(templateFilesDir):
-            QtUtility.displayMessageBox(f"Error, The template files directory\n{templateFilesDir}\ndoes not exist")
+        baseFilesDir = os.path.join(assetsRootDir, 'Stock Base Files', mode, mapName)
+        if not os.path.exists(baseFilesDir):
+            QtUtility.displayMessageBox(f"Error: The base files directory '{baseFilesDir}' does not exist")
             return
 
+        # we've already previously checked that the modName doesn't exist, so we can safely create the mod dir
         modDir = os.path.join(self.wawRootDir, 'mods', modName)
         if not os.path.exists(modDir):
             os.makedirs(modDir)
 
-        # disable the submit button
+        # temporarily disable the submit button
         self.ui.submit_btn.setEnabled(False)
 
         # in-case user didn't prev close the console (only possible if there was an error)
-        self.warningOrErrorOccuredDuringBuild = False
-        self.warningOrErrorLogs.clear()
+        self.modffWarningOrErrorOccuredDuringBuild = False
+        self.modffWarningOrErrorLogs.clear()
         self.console.ui.console.clear()
         self.console.ui.close_console_btn.hide()
 
-        self.initWorker(templateFilesDir, modDir, modName, mapName, mode)
+        self.initWorker(baseFilesDir, modDir, modName, mapName, mode)
     
     def verifyInputs(self):
         modName = self.ui.mod_name_input.text()
         if modName == "":
-            self.updateStatusBar('Warning, Please enter a mod name')
-            raise Exception
-        
+            raise InputValidationAbort('Warning, Please enter a mod name')
+
         if os.path.exists(os.path.join(self.wawRootDir, "mods", modName)):
-            self.updateStatusBar(f'Warning, {modName} already exists')
-            raise Exception
-                    
+            raise InputValidationAbort(f'Warning, {modName} already exists')
+
         if not self.isAnyCheckboxChecked():
-            self.updateStatusBar('Warning, Please select at least one map')
-            raise Exception
+            raise InputValidationAbort('Warning, Please select at least one map')
 
         if not self.isOnlyOneCheckboxChecked():
-            self.updateStatusBar('Warning, Please select only one map')
-            raise Exception
+            raise InputValidationAbort('Warning, Please select only one map')
 
+        # At this point, we know exactly one checkbox is selected
         mode = self.getSelectedCheckboxMode()
-        if mode is None:
-            logger.error(f"Error, You should never see this message [getSelectedCheckboxMode]")
-            QtUtility.displayMessageBox(f"Error, You should never see this message [getSelectedCheckboxMode]")
-            raise Exception
-
-        # get the selected map
         mapName = self.getSelectedCheckboxMap()
-        if mapName is None:
-            logger.error(f"Error, You should never see this message [getSelectedCheckboxMap]")
-            QtUtility.displayMessageBox(f"Error, You should never see this message [getSelectedCheckboxMap]")
-            raise Exception
-        
+
         return modName, mapName, mode
     
     def isAnyCheckboxChecked(self) -> bool:
@@ -154,19 +154,19 @@ class ScriptPlacer:
         return False
     
     def isOnlyOneCheckboxChecked(self) -> bool:
-        checked_cboxes = []
-        
+        # Counter for how many checkboxes are checked
+        checked_count = 0
+
         # Iterate over all checkboxes in the nested dictionaries
         for category in self.optionsWidgets.values():
             for checkbox in category.values():
                 if checkbox.isChecked():
-                    checked_cboxes.append(checkbox)
-                if len(checked_cboxes) > 1:
-                    return False  # More than one checkbox is checked
-        
-        if len(checked_cboxes) == 1:
-            return True  # True if exactly one checkbox is checked, otherwise False
-        return False  # No checkbox is checked
+                    checked_count += 1
+                    if checked_count > 1:
+                        return False  # More than one checkbox is checked
+
+        # If exactly one checkbox is checked, return True
+        return True
     
     def getSelectedCheckboxMode(self) -> str:
         # Iterate over all checkboxes to find the checked one
@@ -175,8 +175,8 @@ class ScriptPlacer:
                 if checkbox.isChecked():
                     return mode  # Return the mode of the checked checkbox
 
-        return None  # Fallback, should not be reached if the previous check is correct
-    
+        # No need for a fallback since validation ensures exactly one is checked
+
     def getSelectedCheckboxMap(self) -> str:
         # Iterate over all checkboxes to find the checked one
         for category in self.optionsWidgets.values():
@@ -184,9 +184,9 @@ class ScriptPlacer:
                 if checkbox.isChecked():
                     return checkbox_name  # Return the name of the checked checkbox
 
-        return None  # Fallback, should not be reached if the previous check is correct
+        # No need for a fallback since validation ensures exactly one is checked
 
-    def initWorker(self, templateFilesDir, modDir, modName, mapName, mode):
+    def initWorker(self, baseFilesDir, modDir, modName, mapName, mode):
         # get this check out of the way now to preven multiple builds
         self.createShortcut = self.ui.shortcut_cbox.isChecked()
         self.runExecutable = self.ui.run_map_cbox.isChecked()
@@ -196,7 +196,7 @@ class ScriptPlacer:
         # Create and start the worker thread
         self.copy_worker = FileCopyWorker(
             wawRootDir=self.wawRootDir,
-            src=templateFilesDir, dest=modDir,
+            src=baseFilesDir, dest=modDir,
             modName=modName, mapName=mapName, mode=mode,
             create_shortcut=self.createShortcut,
             insert_ingame_print_msg=self.insertIngamePrintMsg,
@@ -205,86 +205,50 @@ class ScriptPlacer:
         
         )
         # Connect signals and slots
-        self.copy_worker.show_console.connect(self.showConsole)
+        self.copy_worker.show_console.connect(self.console.show)
         self.copy_worker.update_status_bar.connect(self.updateStatusBar)
-        self.copy_worker.send_display_message_box_message.connect(self.sendDisplayMessageBoxMessage)
+        self.copy_worker.send_display_message_box_message.connect(lambda message: QtUtility.displayMessageBox(message))
         self.copy_worker.finished.connect(self.onWorkerFinished)
 
         # mod.ff & iwd
-        self.copy_worker.build_output_handle.connect(self.buildOutputHandleSlot)
+        self.copy_worker.build_output_handle.connect(lambda message: self.console.ui.console.appendPlainText(message))
         # self.copy_worker.build_interrupted_handle.connect(self.buildInterruptedHandleSlot)  # this feature is not required for this app.
         
         # mod.ff
         self.copy_worker.build_output_warning_handle.connect(self.buildModFFWarningOutputHandleSlot)
         self.copy_worker.build_output_error_handle.connect(self.buildModFFErrorOutputHandleSlot)
-        self.copy_worker.build_modff_success_handle.connect(self.buildModFFSuccessHandleSlot)
-        self.copy_worker.build_modff_failure_handle.connect(self.buildModFFFailureHandleSlot)
+        self.copy_worker.build_modff_success_handle.connect(lambda message: logger.debug(f'On build modff success: {message}'))  # 'All steps completed successfully'
+        self.copy_worker.build_modff_failure_handle.connect(lambda message: logger.debug(f'On build modff failure: {message}'))
         
         # iwd
-        self.copy_worker.build_iwd_success_handle.connect(self.buildIWDSuccessHandleSlot)
-        self.copy_worker.build_iwd_failure_handle.connect(self.buildIWDFailureHandleSlot)
+        self.copy_worker.build_iwd_success_handle.connect(lambda message: logger.debug(f'On build iwd success: {message}'))  # 'All steps completed successfully')
+        self.copy_worker.build_iwd_failure_handle.connect(lambda message: logger.debug(f'On build iwd failure: {message}'))
 
         self.copy_worker.start()
-
-    @Slot(bool)
-    def showConsole(self) -> None:
-        self.console.show()
-    
+        
     @Slot()
     def hideConsole(self) -> None:
         self.console.ui.console.clear()
         self.console.hide()
-        self.warningOrErrorOccuredDuringBuild = False
-        self.warningOrErrorLogs.clear()
+        self.modffWarningOrErrorOccuredDuringBuild = False
+        self.modffWarningOrErrorLogs.clear()
     
     @Slot(str, int)
     def updateStatusBar(self, message, delay=3000) -> None:
         self.ui.statusBar.showMessage(message, delay)
     
-    @Slot(str)
-    def sendDisplayMessageBoxMessage(self, message: str) -> None:
-        QtUtility.displayMessageBox(message)
-
-    # mod.ff & iwd
-    @Slot(str)
-    def buildOutputHandleSlot(self, message: str) -> None:
-        self.console.ui.console.appendPlainText(message)
-    
-    # @Slot(str)
-    # def buildInterruptedHandleSlot(self, message: str) -> None:
-    #     print(f'On process interrupted: {message}')
-    
     # mod.ff
     @Slot(str)
     def buildModFFWarningOutputHandleSlot(self, message: str) -> None:
-        self.updateStatusBar('WARNING occured during modff build')
-        self.warningOrErrorOccuredDuringBuild = True
-        self.warningOrErrorLogs.append(message)
+        logger.debug('WARNING occured during modff build')
+        self.modffWarningOrErrorOccuredDuringBuild = True
+        self.modffWarningOrErrorLogs.append(message)
     
     @Slot(str)
     def buildModFFErrorOutputHandleSlot(self, message: str) -> None:
-        self.updateStatusBar('ERROR occured during modff build')
-        self.warningOrErrorOccuredDuringBuild = True
-        self.warningOrErrorLogs.append(message)
-    
-    @Slot(str)
-    def buildModFFSuccessHandleSlot(self, message: str) -> None:
-        # self.updateStatusBar(message, 25)
-        logger.debug(f'On build modff success: {message}')  # 'All steps completed successfully'
-    
-    @Slot(str)
-    def buildModFFFailureHandleSlot(self, message: str) -> None:
-        logger.info(f'On build modff failure: {message}')
-    
-    # iwd
-    @Slot(str)
-    def buildIWDSuccessHandleSlot(self, message: str) -> None:
-        # self.updateStatusBar(message, 25)
-        logger.debug(f'On build iwd success: {message}')  # 'All steps completed successfully'
-    
-    @Slot(str)
-    def buildIWDFailureHandleSlot(self, message: str) -> None:
-        logger.info(f'On build iwd failure: {message}')
+        logger.debug('ERROR occured during modff build')
+        self.modffWarningOrErrorOccuredDuringBuild = True
+        self.modffWarningOrErrorLogs.append(message)        
 
     @Slot(bool, str)
     def onWorkerFinished(self, result, message) -> None:
@@ -293,9 +257,9 @@ class ScriptPlacer:
         if result:
             self.updateStatusBar(message, delay)
             
-            if self.warningOrErrorOccuredDuringBuild:
+            if self.modffWarningOrErrorOccuredDuringBuild:
                 self.console.ui.console.appendPlainText('\n/************** Here is the list of warnings/errors. *****************/')
-                self.console.ui.console.appendPlainText('\n'.join(self.warningOrErrorLogs))
+                self.console.ui.console.appendPlainText('\n'.join(self.modffWarningOrErrorLogs))
                 self.console.ui.close_console_btn.show()
             else:
                 self.console.ui.console.clear()

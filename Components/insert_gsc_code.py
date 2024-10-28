@@ -24,7 +24,7 @@ def insertMarkerToConfirmTheBuildsValidity(file_path, line_identifier, insert_st
             # After writing all lines, append the append_str to the end of the file
             file.write('\n' + append_str + '\n')
         
-        logger.info(f"File '{file_path}' modified successfully.")
+        logger.debug(f"File '{file_path}' modified successfully.")
 
     except Exception as e:
         logger.exception(f'An error occurred: {e}')
@@ -44,21 +44,21 @@ if __name__ == '__main__':
         case 'sp':
             line_identifier = r'maps\_load::main('
             file_path = os.path.join(dest, 'maps', f'{mapName}.gsc')
-            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
 wait 10;
 iPrintLn( "{message}" );
 }}"""
         case 'mp':
             line_identifier = r'maps\mp\_load::main('
             file_path = os.path.join(dest, 'maps', 'mp', f'{mapName}.gsc')
-            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
 wait 15;
 iPrintLn( "{message}" );
 }}"""
         case 'zm':
             line_identifier = r'maps\_zombiemode::main('
             file_path = os.path.join(dest, 'maps', f'{mapName}.gsc')
-            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
+            append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
 flag_wait("all_players_connected");
 wait 1;
 iPrintLn( "{message}" );
@@ -71,6 +71,6 @@ iPrintLn( "{message}" );
     insertMarkerToConfirmTheBuildsValidity(
         file_path=file_path,
         line_identifier=line_identifier,
-        insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.1',
+        insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.0',
         append_str=append_str
     )
