@@ -30,6 +30,7 @@ The following maps only have a few files (all .gsc from raw) available, due to t
 - mp_shrine (Cliffside)
 
 ## Addtional Notes
+
 ff extractor (for extracting the stock base files yourself)
 source
 https://tom-crowley.co.uk/downloads
@@ -56,7 +57,8 @@ This project is open source and free to use, modify, and distribute under the te
 This is a Phils-Hub community-contributed project.
 
 ## Screen Shots ##
-![image](https://github.com/user-attachments/assets/366a68b7-ffd8-412b-8233-3688ba976f3e)
+
+![alt text](image.png)
 
 
 
