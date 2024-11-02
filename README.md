@@ -1,5 +1,3 @@
-# cod_waw.stock_map.script_placer
-
 Creates a mod with the relevant decompiled stock map files.
 
 ## Installation
