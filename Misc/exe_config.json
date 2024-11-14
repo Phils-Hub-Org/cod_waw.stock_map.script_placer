@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/main.py"
+   "value": "C:/Users/Phil-/OneDrive/__Workbase_Backup__/Phils-Hub/Github/local_repos/cod_waw.stock_map.script_placer/main.py"
   },
   {
    "optionDest": "onefile",
@@ -19,11 +19,11 @@
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Resources/Icons/ico/phils-hub.ico"
+   "value": "C:/Users/Phil-/OneDrive/__Workbase_Backup__/Phils-Hub/Github/local_repos/cod_waw.stock_map.script_placer/Resources/Icons/ico/phils-hub.ico"
   },
   {
    "optionDest": "name",
-   "value": "Phils-Hub Stock-Map Script-Placer v1.1.0"
+   "value": "Phils-Hub Stock-Map Script-Placer v1.1.1"
   },
   {
    "optionDest": "clean_build",
@@ -43,11 +43,11 @@
   },
   {
    "optionDest": "version_file",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc/version.txt"
+   "value": "C:/Users/Phil-/OneDrive/__Workbase_Backup__/Phils-Hub/Github/local_repos/cod_waw.stock_map.script_placer/Misc/version.txt"
   },
   {
    "optionDest": "manifest",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc/script_placer.manifest"
+   "value": "C:/Users/Phil-/OneDrive/__Workbase_Backup__/Phils-Hub/Github/local_repos/cod_waw.stock_map.script_placer/Misc/script_placer.manifest"
   },
   {
    "optionDest": "uac_admin",
@@ -64,26 +64,6 @@
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Components;Components/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Core;Core/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Misc;Misc/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Resources;Resources/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Phil-/Documents/MEGA/__Workbase__/Phils-Hub/Github/cod_waw.stock_map.script_placer/Utils;Utils/"
   }
  ],
  "nonPyinstallerOptions": {

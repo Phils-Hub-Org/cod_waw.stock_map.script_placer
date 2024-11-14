@@ -6,10 +6,8 @@ class Console(QWidget):
 
     def __init__(self):
         super().__init__()
-
-        # remove default window frame / titlebar
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setWindowFlags(Qt.FramelessWindowHint)
-
         self.ui = Ui_ConsoleWidget()
         self.ui.setupUi(self)
         

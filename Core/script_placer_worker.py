@@ -163,21 +163,21 @@ class FileCopyWorker(QThread):
             case 'sp':
                 line_identifier = r'maps\_load::main('
                 file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
     wait 10;
     iPrintLn( "{message}" );
 }}"""
             case 'mp':
                 line_identifier = r'maps\mp\_load::main('
                 file_path = os.path.join(self.dest, 'maps', 'mp', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
     wait 15;
     iPrintLn( "{message}" );
 }}"""
             case 'zm':
                 line_identifier = r'maps\_zombiemode::main('
                 file_path = os.path.join(self.dest, 'maps', f'{self.mapName}.gsc')
-                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.0
+                append_str = f"""\npost() {{  // Phils-Hub - Stock-Map Script-Placer v1.1.1
     flag_wait("all_players_connected");
     wait 1;
     iPrintLn( "{message}" );
@@ -189,6 +189,6 @@ class FileCopyWorker(QThread):
         insert_gsc_code.insertMarkerToConfirmTheBuildsValidity(
             file_path=file_path,
             line_identifier=line_identifier,
-            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.0',
+            insert_str='\n	thread post();  // Phils-Hub - Stock-Map Script-Placer v1.1.1',
             append_str=append_str
         )
